@@ -1,0 +1,140 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand colors */
+  --primary: oklch(55% 0.09 170);
+  --primary-deep: oklch(42% 0.09 170);
+  --primary-glow: oklch(68% 0.11 170);
+
+  /* Surface / background */
+  --bg: #ffffff;
+  --surface: #fbfbfa;
+  --nav-bg: #f4f4f1;
+
+  /* Text */
+  --dark: oklch(20% 0.02 170);
+  --text: #2a2e30;
+  --text-mute: #6a6f72;
+
+  /* Borders / muted */
+  --muted: #ececea;
+  --border: #e9e9e6;
+
+  /* Sections */
+  --slate: #34393c;
+  --experience-bg: #eeede9;
+
+  /* Easing */
+  --ease-out-quint: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+@layer utilities {
+  .wrap {
+    width: 100%;
+    max-width: 1360px;
+    margin-inline: auto;
+    padding-inline: 72px;
+  }
+
+  @media (max-width: 900px) {
+    .wrap {
+      padding-inline: 32px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .wrap {
+      padding-inline: 22px;
+    }
+  }
+
+  .section-py {
+    padding-top: 90px;
+    padding-bottom: 90px;
+  }
+
+  @media (max-width: 900px) {
+    .section-py {
+      padding-top: 64px;
+      padding-bottom: 64px;
+    }
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-pill bg-primary text-white font-medium text-sm px-6 py-3 transition-all duration-300;
+    transition-timing-function: var(--ease-out-quint);
+  }
+
+  .btn-primary:hover {
+    background-color: var(--primary-deep);
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center gap-2 rounded-pill border border-border text-text font-medium text-sm px-6 py-3 transition-all duration-300 bg-transparent;
+    transition-timing-function: var(--ease-out-quint);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .btn-on-dark {
+    @apply inline-flex items-center gap-2 rounded-pill bg-white text-slate font-medium text-sm px-6 py-3 transition-all duration-300;
+    transition-timing-function: var(--ease-out-quint);
+  }
+
+  .btn-on-dark:hover {
+    background-color: var(--muted);
+  }
+}
+
+/* Logo marquee infinite scroll */
+@keyframes logoScroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: logoScroll 24s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
+}
