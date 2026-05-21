@@ -1,7 +1,9 @@
-import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
-import { Header } from '@/components/layout/Header';
-import { Footer } from '@/components/layout/Footer';
-import { LandingPage } from '@/pages/landing-page';
+import { BrowserRouter, Routes, Route, Outlet } from "react-router-dom";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { LandingPage } from "@/pages/landing-page";
+import { LoginPage } from "@/pages/login-page";
+import { SignUpPage } from "@/pages/signup-page";
 
 function Layout() {
   return (
@@ -22,6 +24,8 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<LandingPage />} />
         </Route>
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/signup" element={<SignUpPage />} />
       </Routes>
     </BrowserRouter>
   );

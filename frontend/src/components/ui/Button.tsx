@@ -8,6 +8,7 @@ interface ButtonProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  type?: 'button' | 'submit' | 'reset';
 }
 
 const ArrowIcon = () => (
@@ -37,6 +38,7 @@ export function Button({
   children,
   className = '',
   onClick,
+  type,
 }: ButtonProps) {
   const base =
     'inline-flex items-center gap-2.5 rounded-pill font-medium whitespace-nowrap transition-all duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] select-none cursor-pointer';
@@ -86,7 +88,7 @@ export function Button({
 
   return (
     <motion.button
-      type="button"
+      type={type ?? 'button'}
       className={combinedClass}
       whileHover={hoverAnimation}
       transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}

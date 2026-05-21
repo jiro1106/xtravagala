@@ -3,7 +3,6 @@ import type { City } from '@/data/cities';
 
 interface DestinationCardProps {
   city: City;
-  large?: boolean;
 }
 
 const containerVariants = {
@@ -21,12 +20,12 @@ const arrowVariants = {
   hover: { x: 4, y: -4, backgroundColor: 'var(--primary)' },
 };
 
-export function DestinationCard({ city, large = false }: DestinationCardProps) {
+export function DestinationCard({ city }: DestinationCardProps) {
   return (
     <motion.a
       href="#"
       className="relative overflow-hidden rounded-card-lg cursor-pointer isolate block no-underline"
-      style={{ aspectRatio: large ? '16/10' : '4/5' }}
+      style={{ height: '100%', width: '100%' }}
       variants={containerVariants}
       initial="rest"
       whileHover="hover"

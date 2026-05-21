@@ -1,0 +1,8 @@
+{"type":"server-started","port":64146,"host":"127.0.0.1","url_host":"localhost","url":"http://localhost:64146","screen_dir":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/content","state_dir":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/state"}
+{"type":"screen-added","file":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/content/layout-options.html"}
+{"source":"user-event","type":"click","text":"Flat illustration panel(teal background)\n      \n      \n      \n        Welcome back\n        Sign in to XtravaGala\n        \n        \n        \n        Don't have an account? Sign up\n      \n    \n    \n      A — Split Panel + Illustration\n      Closest to the screenshot. Left half: flat illustration on teal. Right half: form. Bold, memorable first impression.","choice":"a","id":null,"timestamp":1779360337605}
+{"type":"screen-added","file":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/content/waiting-1.html"}
+{"type":"screen-added","file":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/content/illustration-styles.html"}
+{"type":"screen-added","file":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/content/waiting-2.html"}
+{"type":"screen-added","file":"/Users/jirolayug/Documents/projects/react/xtravagala/.superpowers/brainstorm/96289-1779360257/content/login-design.html"}
+{"type":"server-stopped","reason":"idle timeout"}

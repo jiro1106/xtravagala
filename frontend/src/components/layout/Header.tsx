@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 
 const NAV_LINKS = [
@@ -33,13 +34,13 @@ export function Header() {
       }}
     >
       <div
-        className="wrap"
         style={{
           display: 'flex',
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
-          padding: '18px 0',
+          padding: '18px clamp(20px, 4vw, 48px)',
+          width: '100%',
         }}
       >
         {/* Brand mark */}
@@ -118,8 +119,8 @@ export function Header() {
 
         {/* Actions */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-          <a
-            href="#"
+          <Link
+            to="/login"
             style={{
               fontSize: '14px',
               fontWeight: 500,
@@ -136,7 +137,7 @@ export function Header() {
             }}
           >
             Sign in
-          </a>
+          </Link>
           <div style={{ marginLeft: '8px' }}>
             <Button variant="primary" size="sm" href="#" showArrow>
               Get started

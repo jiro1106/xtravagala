@@ -93,7 +93,7 @@ export function DestinationsSection() {
                 }}
                 style={{ height: '100%' }}
               >
-                <DestinationCard city={city} large={city.large} />
+                <DestinationCard city={city} />
               </motion.div>
             ))}
           </motion.div>
