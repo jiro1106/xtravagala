@@ -1,17 +1,16 @@
-// frontend/src/pages/signup-page/index.tsx
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { AuthIllustration } from '@/components/ui/AuthIllustration';
+import { HostIllustration } from '@/components/ui/HostIllustration';
 import { EyeIcon, GoogleIcon } from '@/components/ui/AuthIcons';
 import { Button } from '@/components/ui/Button';
 
-export function SignUpPage() {
+export function HostLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden flex-col md:flex-row">
-      <AuthIllustration />
+      <HostIllustration />
 
       {/* Right: Form panel */}
       <div className="flex flex-1 min-w-0 flex-col overflow-y-auto bg-white px-8 py-9 md:px-11">
@@ -29,11 +28,16 @@ export function SignUpPage() {
 
         {/* Form */}
         <div className="mx-auto flex w-full max-w-sm flex-1 flex-col justify-center">
+          {/* Host portal badge */}
+          <span className="mb-3 inline-block w-fit rounded-full bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-widest text-primary">
+            Host portal
+          </span>
+
           <h1 className="mb-1 text-[24px] font-semibold tracking-tight text-text">
-            Create your account
+            Welcome back, host
           </h1>
           <p className="mb-7 text-[13.5px] text-text-mute">
-            Join XtravaGala today
+            Sign in to your host account
           </p>
 
           <form onSubmit={(e) => e.preventDefault()} className="flex flex-col">
@@ -55,34 +59,17 @@ export function SignUpPage() {
               <div className="flex-1 border-t border-border" />
             </div>
 
-            {/* Full name */}
-            <div className="mb-3">
-              <label htmlFor="name" className="mb-1.5 block text-[12px] font-medium text-text-mute">
-                Full name
-              </label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                placeholder="Your name"
-                autoComplete="name"
-                className="h-[42px] w-full rounded-[9px] border border-border bg-surface px-3.5 text-sm text-text
-                           placeholder:text-text-mute/50 transition-colors duration-200
-                           focus:border-primary focus:bg-white focus:outline-none"
-              />
-            </div>
-
             {/* Email */}
             <div className="mb-3">
-              <label htmlFor="email" className="mb-1.5 block text-[12px] font-medium text-text-mute">
+              <label htmlFor="host-email" className="mb-1.5 block text-[12px] font-medium text-text-mute">
                 Email
               </label>
               <input
-                id="email"
-                name="email"
+                id="host-email"
                 type="email"
-                placeholder="you@example.com"
+                name="email"
                 autoComplete="email"
+                placeholder="you@example.com"
                 className="h-[42px] w-full rounded-[9px] border border-border bg-surface px-3.5 text-sm text-text
                            placeholder:text-text-mute/50 transition-colors duration-200
                            focus:border-primary focus:bg-white focus:outline-none"
@@ -90,17 +77,17 @@ export function SignUpPage() {
             </div>
 
             {/* Password */}
-            <div className="mb-1">
-              <label htmlFor="password" className="mb-1.5 block text-[12px] font-medium text-text-mute">
+            <div className="mb-2">
+              <label htmlFor="host-password" className="mb-1.5 block text-[12px] font-medium text-text-mute">
                 Password
               </label>
               <div className="relative">
                 <input
-                  id="password"
-                  name="password"
+                  id="host-password"
                   type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  autoComplete="current-password"
                   placeholder="••••••••"
-                  autoComplete="new-password"
                   className="h-[42px] w-full rounded-[9px] border border-border bg-surface px-3.5 pr-10 text-sm text-text
                              placeholder:text-text-mute/50 transition-colors duration-200
                              focus:border-primary focus:bg-white focus:outline-none"
@@ -115,36 +102,33 @@ export function SignUpPage() {
                 </button>
               </div>
             </div>
-            <p className="mb-5 text-[11px] text-text-mute">
-              Use 8 or more characters
-            </p>
+
+            {/* Forgot password */}
+            <div className="mb-5 flex justify-end">
+              <Link
+                to="/forgot-password"
+                className="text-[12.5px] text-primary transition-opacity hover:opacity-75"
+              >
+                Forgot password?
+              </Link>
+            </div>
 
             {/* Submit */}
             <Button type="submit" variant="primary" className="w-full justify-center">
-              Create account
+              Sign in to host portal
             </Button>
           </form>
 
-          {/* Sign-in link */}
-          <p className="mt-5 text-center text-[13px] text-text-mute">
-            Already have an account?{' '}
-            <Link
-              to="/login"
-              className="font-medium text-primary transition-opacity hover:opacity-75"
-            >
-              Sign in
-            </Link>
-          </p>
         </div>
 
-        {/* Host cross-link — bottom of panel */}
+        {/* Attendee cross-link — bottom of panel */}
         <p className="mt-auto pt-6 text-center text-[12.5px] text-text-mute">
-          Are you a host?{' '}
+          Not a host?{' '}
           <Link
-            to="/host/login"
+            to="/login"
             className="font-medium text-primary transition-opacity hover:opacity-75"
           >
-            Sign in to host portal
+            Sign in as attendee
           </Link>
         </p>
       </div>

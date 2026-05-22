@@ -8,6 +8,11 @@ export interface Event {
   attendees: number;
   category: string;
   city: string;
+  // Detail fields — optional so list views work without changes
+  description?: string;
+  venue?: string;
+  address?: string;
+  schedule?: Array<{ time: string; label: string }>;
 }
 
 export const events: Event[] = [
@@ -21,6 +26,14 @@ export const events: Event[] = [
     attendees: 13,
     category: 'hobbies',
     city: 'makati',
+    description: 'A relaxed Sunday morning gathering for people who enjoy slow coffee, quiet conversation, and good company. Drop in anytime — no agenda, no pressure. Just bring yourself and an open mind.',
+    venue: 'Little Japan Cafe',
+    address: 'Poblacion, Makati, Metro Manila',
+    schedule: [
+      { time: '2:00 PM', label: 'Doors open, free seating' },
+      { time: '2:30 PM', label: 'Introductions & open chat' },
+      { time: '4:00 PM', label: 'Wind down' },
+    ],
   },
   {
     id: 'e2',
@@ -32,6 +45,15 @@ export const events: Event[] = [
     attendees: 20,
     category: 'workshops',
     city: 'manila',
+    description: 'A weekly discussion group that applies philosophical ideas to everyday life. Each session focuses on a single question or text. No background in philosophy required — just curiosity and willingness to think out loud.',
+    venue: 'The Study Room, Fully Booked BGC',
+    address: '4F High Street South Corporate Plaza, BGC, Taguig',
+    schedule: [
+      { time: '7:00 PM', label: 'Doors open' },
+      { time: '7:15 PM', label: 'Topic introduction' },
+      { time: '7:30 PM', label: 'Open discussion' },
+      { time: '9:00 PM', label: 'Close' },
+    ],
   },
   {
     id: 'e3',
@@ -43,6 +65,15 @@ export const events: Event[] = [
     attendees: 98,
     category: 'business',
     city: 'manila',
+    description: 'Celebrating 10 years of WordPress Manila! Join the community for talks on Gutenberg, WooCommerce, performance, and the future of WordPress in the PH. Includes networking lunch and raffle.',
+    venue: 'Globe Tower Events Hall',
+    address: 'The Globe Tower, 32nd St, BGC, Taguig, 1634',
+    schedule: [
+      { time: '1:00 PM', label: 'Registration & networking' },
+      { time: '2:00 PM', label: 'Opening keynote' },
+      { time: '3:00 PM', label: 'Breakout sessions' },
+      { time: '5:00 PM', label: 'Raffle & close' },
+    ],
   },
   {
     id: 'e4',
@@ -54,6 +85,15 @@ export const events: Event[] = [
     attendees: 3,
     category: 'workshops',
     city: 'manila',
+    description: "An introductory poetry workshop focused on using writing as a tool for mental wellness. You don't need to be a writer — just bring a pen and whatever is on your mind. Prompts provided.",
+    venue: 'Commune Cafe & Bar',
+    address: '36 Polaris St, Makati, Metro Manila',
+    schedule: [
+      { time: '1:00 PM', label: 'Welcome & warm-up writing' },
+      { time: '1:30 PM', label: 'Guided poetry prompts' },
+      { time: '2:30 PM', label: 'Share & reflect' },
+      { time: '3:00 PM', label: 'Close' },
+    ],
   },
   {
     id: 'e5',
@@ -65,6 +105,15 @@ export const events: Event[] = [
     attendees: 15,
     category: 'business',
     city: 'manila',
+    description: 'A technical deep-dive into building real-time analytics pipelines with StarRocks and Apache Kafka. Includes live demos, Q&A, and post-event networking. Suitable for engineers and data professionals.',
+    venue: 'KMC Coworking Ortigas',
+    address: '8/F Robinsons Cybergate Gamma, Ortigas Center, Pasig',
+    schedule: [
+      { time: '6:30 PM', label: 'Doors open & networking' },
+      { time: '7:00 PM', label: 'Talk: StarRocks + Kafka in production' },
+      { time: '7:45 PM', label: 'Live demo' },
+      { time: '8:15 PM', label: 'Q&A & close' },
+    ],
   },
   {
     id: 'e6',
@@ -76,6 +125,14 @@ export const events: Event[] = [
     attendees: 8,
     category: 'nightlife',
     city: 'manila',
+    description: 'A casual Saturday night hangout for expats and locals in their 20s and 30s. Games, drinks, and easy conversation. A great way to meet new people in the city with zero pressure.',
+    venue: 'Draft Gastropub BGC',
+    address: 'Ground Floor, Petron MegaPlaza, BGC, Taguig',
+    schedule: [
+      { time: '7:30 PM', label: 'Arrive & mingle' },
+      { time: '8:00 PM', label: 'Group games & activities' },
+      { time: '10:00 PM', label: 'Free night continues' },
+    ],
   },
   {
     id: 'e7',
@@ -87,6 +144,14 @@ export const events: Event[] = [
     attendees: 42,
     category: 'music',
     city: 'bgc',
+    description: "An intimate rooftop jazz night overlooking the BGC skyline. Featuring some of Manila's finest jazz musicians playing late into the night. Drinks available at the bar. Limited spots — come early.",
+    venue: 'The Penthouse at High Street South',
+    address: '26th St, Bonifacio Global City, Taguig, 1634 Metro Manila',
+    schedule: [
+      { time: '9:00 PM', label: 'Doors open' },
+      { time: '9:30 PM', label: 'First set begins' },
+      { time: '11:30 PM', label: 'Late set & close' },
+    ],
   },
   {
     id: 'e8',
@@ -98,6 +163,16 @@ export const events: Event[] = [
     attendees: 12,
     category: 'workshops',
     city: 'bgc',
+    description: 'Short, sharp talks on ideas that matter — held in a bar. Each event features two 15-minute lectures followed by discussion. Past topics include urban planning, AI ethics, and food systems. Drink in hand, mind wide open.',
+    venue: 'The Bottle Shop BGC',
+    address: '28th St corner 5th Ave, BGC, Taguig',
+    schedule: [
+      { time: '6:30 PM', label: 'Doors open' },
+      { time: '7:00 PM', label: 'Lecture 1' },
+      { time: '7:20 PM', label: 'Break & discussion' },
+      { time: '7:40 PM', label: 'Lecture 2' },
+      { time: '8:00 PM', label: 'Open floor & drinks' },
+    ],
   },
   {
     id: 'e9',
@@ -109,6 +184,15 @@ export const events: Event[] = [
     attendees: 210,
     category: 'food',
     city: 'cebu',
+    description: 'Over 20 craft breweries from across the Philippines come together for a summer session in Cebu. Unlimited tasting tokens, live music, and food stalls. The biggest craft beer event in the Visayas.',
+    venue: 'Ayala Center Cebu Activity Center',
+    address: 'Cebu Business Park, Archbishop Reyes Ave, Cebu City',
+    schedule: [
+      { time: '4:00 PM', label: 'Gates open & tasting begins' },
+      { time: '5:00 PM', label: 'Live band sets' },
+      { time: '7:00 PM', label: "Brewer's showcase & awards" },
+      { time: '9:00 PM', label: 'Close' },
+    ],
   },
   {
     id: 'e10',
@@ -120,6 +204,15 @@ export const events: Event[] = [
     attendees: 340,
     category: 'outdoors',
     city: 'bgc',
+    description: 'A 5K fun run through the streets of BGC after dark. Wear neon — paint stations along the route. Race kit includes shirt, finisher medal, and glow accessories. All pace levels welcome.',
+    venue: 'BGC Track (start/finish)',
+    address: '38th St, Bonifacio Global City, Taguig',
+    schedule: [
+      { time: '8:00 PM', label: 'Assembly & kit check' },
+      { time: '8:30 PM', label: 'Race starts' },
+      { time: '9:30 PM', label: 'Finisher area & photos' },
+      { time: '10:00 PM', label: 'Raffle & close' },
+    ],
   },
   {
     id: 'e11',
@@ -131,6 +224,15 @@ export const events: Event[] = [
     attendees: 860,
     category: 'music',
     city: 'manila',
+    description: "The premier jazz festival in Southeast Asia returns for its 2026 edition. Three stages, 18 acts across two nights, featuring local and international artists. General admission includes access to all outdoor stages.",
+    venue: 'Luneta Park Grandstand',
+    address: 'Roxas Blvd, Ermita, Manila',
+    schedule: [
+      { time: '7:00 PM', label: 'Gates open' },
+      { time: '7:30 PM', label: 'Opening act — Main Stage' },
+      { time: '9:00 PM', label: 'Headline performance' },
+      { time: '11:00 PM', label: 'Close' },
+    ],
   },
   {
     id: 'e12',
@@ -142,6 +244,14 @@ export const events: Event[] = [
     attendees: 55,
     category: 'hobbies',
     city: 'makati',
+    description: 'A self-guided walking tour of six galleries in the Legazpi and Salcedo Village area. Each gallery opens its latest exhibition for free. Maps and artist notes provided at the first stop.',
+    venue: 'Starts at Finale Art File',
+    address: '3/F Robinsons Galleria Ortigas, Ortigas Ave, Quezon City',
+    schedule: [
+      { time: '10:00 AM', label: 'Map pickup at Finale Art File' },
+      { time: '10:30 AM', label: 'Gallery walk opens (self-guided)' },
+      { time: '1:00 PM', label: 'Optional group debrief at last stop' },
+    ],
   },
   {
     id: 'e13',
@@ -153,6 +263,14 @@ export const events: Event[] = [
     attendees: 78,
     category: 'nightlife',
     city: 'cebu',
+    description: 'Weekly salsa social at SocialMade bar. Beginners welcome — a free 30-minute lesson kicks off the night before the social dancing begins. Latin music all night, mixed crowd, great energy.',
+    venue: 'SocialMade Bar & Kitchen',
+    address: 'Level 1, Ayala Center Cebu, Archbishop Reyes Ave, Cebu City',
+    schedule: [
+      { time: '9:00 PM', label: 'Beginner lesson (free, included)' },
+      { time: '9:30 PM', label: 'Social dancing begins' },
+      { time: '1:00 AM', label: 'Close' },
+    ],
   },
   {
     id: 'e14',
@@ -164,6 +282,14 @@ export const events: Event[] = [
     attendees: 430,
     category: 'food',
     city: 'manila',
+    description: "Poblacion's beloved weekly night market. 40+ food stalls, local designers, live acoustic sets, and the best people-watching in Makati. Entry is free — just bring your appetite.",
+    venue: 'Kalayaan Avenue',
+    address: 'Kalayaan Ave, Poblacion, Makati, Metro Manila',
+    schedule: [
+      { time: '5:00 PM', label: 'Market opens' },
+      { time: '6:00 PM', label: 'Live acoustic sets begin' },
+      { time: '10:00 PM', label: 'Market closes' },
+    ],
   },
   {
     id: 'e15',
@@ -175,6 +301,15 @@ export const events: Event[] = [
     attendees: 62,
     category: 'outdoors',
     city: 'bgc',
+    description: 'Start your Sunday right with an outdoor yoga session at BGC Commons. All levels welcome. Bring your own mat. The session ends with a short breathwork cool-down as the city wakes up around you.',
+    venue: 'BGC Commons',
+    address: '5th Ave, Bonifacio Global City, Taguig',
+    schedule: [
+      { time: '6:00 AM', label: 'Gather & set up mats' },
+      { time: '6:10 AM', label: 'Session begins' },
+      { time: '7:10 AM', label: 'Breathwork & cool-down' },
+      { time: '7:30 AM', label: 'Close' },
+    ],
   },
   {
     id: 'e16',
@@ -186,6 +321,16 @@ export const events: Event[] = [
     attendees: 1200,
     category: 'food',
     city: 'davao',
+    description: "An annual celebration of Davao's most famous export. 60+ durian varieties to taste, cooking demonstrations, heritage talks, and the famous durian-eating contest. The largest durian fair in Southeast Asia.",
+    venue: 'Magsaysay Park',
+    address: 'Magsaysay Park, Santa Ana Ave, Davao City',
+    schedule: [
+      { time: '8:00 AM', label: 'Gates open' },
+      { time: '9:00 AM', label: 'Opening ceremony' },
+      { time: '10:00 AM', label: 'Durian-eating contest' },
+      { time: '12:00 PM', label: 'Cooking demos & tastings' },
+      { time: '5:00 PM', label: 'Close' },
+    ],
   },
   {
     id: 'e17',
@@ -197,6 +342,15 @@ export const events: Event[] = [
     attendees: 44,
     category: 'outdoors',
     city: 'baguio',
+    description: 'Pick your own strawberries at a working farm in La Trinidad, Benguet, then settle in for a hillside picnic with a view. Ticket includes picking basket, 250g take-home punnet, and picnic spread.',
+    venue: 'La Trinidad Strawberry Farm',
+    address: 'Km 5, La Trinidad, Benguet, Baguio',
+    schedule: [
+      { time: '7:00 AM', label: 'Farm arrival & briefing' },
+      { time: '7:30 AM', label: 'Strawberry picking session' },
+      { time: '9:00 AM', label: 'Hillside picnic setup' },
+      { time: '11:00 AM', label: 'Pack up & depart' },
+    ],
   },
   {
     id: 'e18',
@@ -208,6 +362,15 @@ export const events: Event[] = [
     attendees: 18,
     category: 'food',
     city: 'makati',
+    description: 'A hands-on advanced cocktail class covering fat-washing, clarification, and carbonation techniques. Each participant makes and takes home three cocktails. Prerequisite: basic bartending experience or prior Bar Academy class.',
+    venue: 'The Bar Academy PH Studio',
+    address: '2/F The Beaufort, 5th Ave cor 23rd St, BGC, Taguig',
+    schedule: [
+      { time: '2:00 PM', label: 'Welcome & ingredient rundown' },
+      { time: '2:30 PM', label: 'Technique demo: fat-washing' },
+      { time: '3:30 PM', label: 'Hands-on cocktail making' },
+      { time: '5:00 PM', label: 'Tasting & wrap-up' },
+    ],
   },
   {
     id: 'e19',
@@ -219,6 +382,15 @@ export const events: Event[] = [
     attendees: 34,
     category: 'music',
     city: 'iloilo',
+    description: 'A weekly open mic night in the heart of the Iloilo heritage district. Musicians, poets, comedians, and storytellers all welcome. Sign-up sheet opens at 7:30 PM. The stage is yours — 8 minutes per act.',
+    venue: 'Camiña Balay nga Bato Courtyard',
+    address: 'Jalandoni-Javellana Heritage House, Mabini St, Iloilo City',
+    schedule: [
+      { time: '7:30 PM', label: 'Sign-up sheet opens' },
+      { time: '8:00 PM', label: 'First act' },
+      { time: '10:30 PM', label: 'Last call for performers' },
+      { time: '11:00 PM', label: 'Close' },
+    ],
   },
   {
     id: 'e20',
@@ -230,5 +402,16 @@ export const events: Event[] = [
     attendees: 620,
     category: 'business',
     city: 'manila',
+    description: "The Philippines' largest startup conference. 80+ speakers, 6 tracks covering fundraising, product, growth, and policy. Includes expo floor with 40 exhibitors, pitch competition finals, and networking dinner.",
+    venue: 'SMX Convention Center Manila',
+    address: 'Seashell Lane, Mall of Asia Complex, Pasay City',
+    schedule: [
+      { time: '9:00 AM', label: 'Registration & expo opens' },
+      { time: '10:00 AM', label: 'Keynote: State of PH Startups' },
+      { time: '11:00 AM', label: 'Breakout tracks begin' },
+      { time: '1:00 PM', label: 'Lunch & networking' },
+      { time: '2:00 PM', label: 'Pitch competition finals' },
+      { time: '5:00 PM', label: 'Networking dinner & awards' },
+    ],
   },
 ];

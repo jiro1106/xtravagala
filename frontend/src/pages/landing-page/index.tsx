@@ -1,9 +1,9 @@
-import { HeroSection } from './HeroSection';
-import { EventsSection } from './EventsSection';
-import { DestinationsSection } from './DestinationsSection';
-import { TrustSection } from './TrustSection';
-import { ExperienceSection } from './ExperienceSection';
-import { FinalCTASection } from './FinalCTASection';
+import { HeroSection } from "./HeroSection";
+import { EventsSection } from "./EventsSection";
+import { DestinationsSection } from "./DestinationsSection";
+import { TrustSection } from "./TrustSection";
+import { HostSection } from "./HostSection";
+import { FinalCTASection } from "./FinalCTASection";
 
 export function LandingPage() {
   return (
@@ -12,7 +12,7 @@ export function LandingPage() {
       <EventsSection />
       <DestinationsSection />
       <TrustSection />
-      <ExperienceSection />
+      <HostSection />
       <FinalCTASection />
     </>
   );

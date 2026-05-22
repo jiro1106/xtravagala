@@ -1,16 +1,20 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
+
+const MotionLink = motion(Link);
 
 interface CategoryItemProps {
   label: string;
   svgContent: string;
+  to?: string;
 }
 
 // svgContent is sourced exclusively from static data files in @/data/ and is never user-supplied.
 // It contains only safe SVG path/shape elements (no scripts, no event handlers, no external refs).
-export function CategoryItem({ label, svgContent }: CategoryItemProps) {
+export function CategoryItem({ label, svgContent, to = '/events' }: CategoryItemProps) {
   return (
-    <motion.a
-      href="#"
+    <MotionLink
+      to={to}
       className="group flex flex-col items-center gap-2.5 px-2 py-3.5 rounded-[22px] cursor-pointer no-underline text-[var(--text)]"
       whileHover={{ y: -4 }}
       transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1] }}
@@ -37,6 +41,6 @@ export function CategoryItem({ label, svgContent }: CategoryItemProps) {
       <span className="font-medium text-[14.5px] -tracking-[0.005em]">
         {label}
       </span>
-    </motion.a>
+    </MotionLink>
   );
 }

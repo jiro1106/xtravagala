@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import type { Event } from '@/data/events';
 
@@ -13,7 +14,8 @@ export function EventCard({ event, delay = 0 }: EventCardProps) {
   const [hovered, setHovered] = useState(false);
 
   return (
-    <motion.article
+    <Link to={`/events/${event.id}`} style={{ textDecoration: 'none', display: 'block' }}>
+      <motion.article
       initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-40px' }}
@@ -87,5 +89,6 @@ export function EventCard({ event, delay = 0 }: EventCardProps) {
         </div>
       </div>
     </motion.article>
+    </Link>
   );
 }

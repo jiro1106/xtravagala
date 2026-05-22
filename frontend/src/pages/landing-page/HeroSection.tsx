@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { Button } from "@/components/ui/Button";
 import { CategoryItem } from "@/components/ui/CategoryItem";
@@ -202,8 +203,8 @@ export function HeroSection() {
             >
               Browse by category
             </span>
-            <a
-              href="#"
+            <Link
+              to="/events"
               style={{
                 fontSize: 13.5,
                 color: "var(--primary)",
@@ -212,7 +213,7 @@ export function HeroSection() {
               }}
             >
               See all →
-            </a>
+            </Link>
           </div>
 
           <>
@@ -242,7 +243,7 @@ export function HeroSection() {
                     delay: 0.15 + index * 0.05,
                   }}
                 >
-                  <CategoryItem label={cat.label} svgContent={cat.svgContent} />
+                  <CategoryItem label={cat.label} svgContent={cat.svgContent} to={`/events?category=${cat.id}`} />
                 </motion.div>
               ))}
             </div>

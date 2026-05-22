@@ -17,18 +17,13 @@ export function LoginPage() {
       <div className="flex flex-1 min-w-0 flex-col overflow-y-auto bg-white px-8 py-9 md:px-11">
 
         {/* Logo / back to home */}
-        <Link
-          to="/"
-          className="flex items-center gap-2 no-underline"
-        >
+        <Link to="/" className="flex items-center gap-2.5 no-underline">
+          <img src="/icon.png" alt="XtravaGala" className="h-8 w-auto shrink-0 object-contain" />
           <span
-            className="grid h-[26px] w-[26px] shrink-0 place-items-center rounded-[7px] bg-primary text-[13px] font-bold text-white"
-            style={{ boxShadow: '0 2px 8px -2px oklch(55% 0.09 170 / 0.5)' }}
+            className="text-[17px] uppercase text-primary"
+            style={{ fontFamily: "'Paytone One', sans-serif", fontWeight: 400, letterSpacing: "-0.04em" }}
           >
-            X
-          </span>
-          <span className="text-[14px] font-semibold tracking-tight text-text">
-            XtravaGala
+            Xtravagala
           </span>
         </Link>
 
@@ -131,6 +126,17 @@ export function LoginPage() {
             </Link>
           </p>
         </div>
+
+        {/* Host cross-link — bottom of panel */}
+        <p className="mt-auto pt-6 text-center text-[12.5px] text-text-mute">
+          Are you a host?{' '}
+          <Link
+            to="/host/login"
+            className="font-medium text-primary transition-opacity hover:opacity-75"
+          >
+            Sign in to host portal
+          </Link>
+        </p>
       </div>
     </div>
   );

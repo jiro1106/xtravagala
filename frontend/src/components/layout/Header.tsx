@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/Button";
 
 const NAV_LINKS = [
-  { label: "Find Events", href: "#discover" },
-  { label: "Cities", href: "#destinations" },
-  { label: "For Hosts", href: "#experience" },
+  { label: "Find Events", href: "/#discover" },
+  { label: "Cities", href: "/#destinations" },
+  { label: "For Hosts", href: "/#experience" },
 ];
 
 export function Header() {
@@ -114,31 +113,16 @@ export function Header() {
         </nav>
 
         {/* Actions */}
-        <div style={{ display: "flex", alignItems: "center", gap: "4px" }}>
-          <Link
-            to="/login"
-            style={{
-              fontSize: "14px",
-              fontWeight: 500,
-              padding: "8px 4px",
-              color: "var(--text)",
-              textDecoration: "none",
-              transition: "color 0.2s ease",
-            }}
-            onMouseEnter={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color =
-                "var(--primary)";
-            }}
-            onMouseLeave={(e) => {
-              (e.currentTarget as HTMLAnchorElement).style.color =
-                "var(--text)";
-            }}
-          >
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <Button variant="ghost" size="sm" to="/login">
             Sign in
-          </Link>
-          <div style={{ marginLeft: "8px" }}>
-            <Button variant="primary" size="sm" href="#" showArrow>
-              Get started
+          </Button>
+          <Button variant="primary" size="sm" to="/signup" showArrow>
+            Sign up
+          </Button>
+          <div className="hidden md:block" style={{ marginLeft: "20px" }}>
+            <Button variant="ghost" size="sm" to="/host/login">
+              Become a host
             </Button>
           </div>
         </div>
