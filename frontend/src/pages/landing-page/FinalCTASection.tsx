@@ -41,7 +41,7 @@ export function FinalCTASection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-40px' }}
               transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
-              style={{ position: 'relative', maxWidth: 800 }}
+              style={{ position: 'relative', maxWidth: 800, margin: '0 auto', textAlign: 'center' }}
             >
               <h2
                 style={{
@@ -63,6 +63,7 @@ export function FinalCTASection() {
                   maxWidth: '48ch',
                   marginBottom: 32,
                   lineHeight: 1.6,
+                  margin: '0 auto 32px',
                 }}
               >
                 Create your first event or browse what's happening this weekend.
@@ -73,12 +74,13 @@ export function FinalCTASection() {
                   display: 'flex',
                   gap: 12,
                   flexWrap: 'wrap',
+                  justifyContent: 'center',
                 }}
               >
                 <Button variant="primary" href="#" showArrow>
                   Create an event
                 </Button>
-                <Button variant="on-dark" href="#">
+                <Button variant="on-dark" to="/events">
                   Browse events
                 </Button>
               </div>

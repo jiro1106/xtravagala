@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { DestinationCard } from '@/components/ui/DestinationCard';
 import { cities } from '@/data/cities';
 
@@ -79,7 +80,7 @@ export function DestinationsSection() {
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1], delay: 0.1 }}
           >
-            {cities.map((city, index) => (
+            {cities.slice(0, 4).map((city, index) => (
               <motion.div
                 key={city.id}
                 className={city.large ? 'city-large' : 'city-regular'}
@@ -93,7 +94,7 @@ export function DestinationsSection() {
                 }}
                 style={{ height: '100%' }}
               >
-                <DestinationCard city={city} />
+                <DestinationCard city={city} to={`/events?city=${city.id}`} />
               </motion.div>
             ))}
           </motion.div>
@@ -101,35 +102,42 @@ export function DestinationsSection() {
 
         {/* View more cities pill */}
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: 28 }}>
-          <motion.a
-            href="#"
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.3 }}
-            whileHover={{
-              borderColor: 'var(--primary)',
-              color: 'var(--primary)',
-              y: -1,
-            }}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 10,
-              padding: '10px 22px',
-              borderRadius: 100,
-              border: '1px solid var(--border)',
-              background: 'var(--bg)',
-              color: 'var(--text)',
-              fontSize: 14.5,
-              fontWeight: 500,
-              letterSpacing: '-0.005em',
-              textDecoration: 'none',
-              transition: 'border-color 0.25s, color 0.25s',
-            }}
+            whileHover={{ y: -1 }}
           >
-            View more cities →
-          </motion.a>
+            <Link
+              to="/destinations"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '10px 22px',
+                borderRadius: 100,
+                border: '1px solid var(--border)',
+                background: 'var(--bg)',
+                color: 'var(--text)',
+                fontSize: 14.5,
+                fontWeight: 500,
+                letterSpacing: '-0.005em',
+                textDecoration: 'none',
+                transition: 'border-color 0.25s, color 0.25s',
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--primary)';
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--primary)';
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLAnchorElement).style.borderColor = 'var(--border)';
+                (e.currentTarget as HTMLAnchorElement).style.color = 'var(--text)';
+              }}
+            >
+              View more cities →
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

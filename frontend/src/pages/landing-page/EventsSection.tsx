@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { EventCard } from '@/components/ui/EventCard';
 import { events } from '@/data/events';
 
@@ -45,8 +46,8 @@ export function EventsSection() {
             </p>
           </div>
 
-          <a
-            href="#"
+          <Link
+            to="/events"
             style={{
               fontSize: 14.5,
               color: 'var(--primary)',
@@ -56,7 +57,7 @@ export function EventsSection() {
             }}
           >
             See all events →
-          </a>
+          </Link>
         </motion.div>
 
         {/* Events grid */}
@@ -79,7 +80,7 @@ export function EventsSection() {
             }
           `}</style>
           <div className="events-grid">
-            {events.map((event, index) => (
+            {events.slice(0, 12).map((event, index) => (
               <EventCard key={event.id} event={event} delay={index * 0.08} />
             ))}
           </div>
@@ -87,26 +88,29 @@ export function EventsSection() {
 
         {/* Browse more link */}
         <div style={{ display: 'flex' }}>
-          <motion.a
-            href="#"
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: '-40px' }}
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
             whileHover={{ x: 4 }}
-            style={{
-              marginTop: 44,
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 10,
-              fontWeight: 500,
-              color: 'var(--primary)',
-              fontSize: 14.5,
-              textDecoration: 'none',
-            }}
+            style={{ marginTop: 44 }}
           >
-            Browse 1,840 more events this weekend →
-          </motion.a>
+            <Link
+              to="/events"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                fontWeight: 500,
+                color: 'var(--primary)',
+                fontSize: 14.5,
+                textDecoration: 'none',
+              }}
+            >
+              Browse 1,840 more events this weekend →
+            </Link>
+          </motion.div>
         </div>
       </div>
     </section>

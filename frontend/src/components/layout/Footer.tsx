@@ -131,32 +131,27 @@ export function Footer() {
                 marginBottom: '0',
               }}
             >
-              <span
+              <img
+                src="/icon.png"
+                alt="XtravaGala"
                 style={{
-                  width: '28px',
-                  height: '28px',
-                  borderRadius: '8px',
-                  backgroundColor: 'var(--primary)',
-                  boxShadow: '0 2px 8px -2px oklch(55% 0.09 170 / 0.5)',
-                  color: '#ffffff',
-                  fontWeight: 600,
-                  fontSize: '15px',
-                  display: 'grid',
-                  placeItems: 'center',
+                  height: '40px',
+                  width: 'auto',
                   flexShrink: 0,
+                  objectFit: 'contain',
                 }}
-              >
-                X
-              </span>
+              />
               <span
                 style={{
-                  fontWeight: 600,
-                  letterSpacing: '-0.02em',
+                  fontFamily: "'Paytone One', sans-serif",
+                  fontWeight: 400,
+                  letterSpacing: '-0.04em',
                   fontSize: '19px',
-                  color: FOOTER_COLOR,
+                  textTransform: 'uppercase',
+                  color: 'var(--primary-glow)',
                 }}
               >
-                XtravaGala
+                Xtravagala
               </span>
             </a>
             <p

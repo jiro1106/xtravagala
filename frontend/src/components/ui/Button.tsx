@@ -1,9 +1,11 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   variant?: 'primary' | 'ghost' | 'on-dark';
   size?: 'default' | 'sm';
   href?: string;
+  to?: string;
   showArrow?: boolean;
   children: React.ReactNode;
   className?: string;
@@ -34,6 +36,7 @@ export function Button({
   variant = 'primary',
   size = 'default',
   href,
+  to,
   showArrow = false,
   children,
   className = '',
@@ -72,6 +75,20 @@ export function Button({
       {showArrow && <ArrowIcon />}
     </>
   );
+
+  if (to) {
+    return (
+      <motion.div
+        style={{ display: 'inline-flex' }}
+        whileHover={hoverAnimation}
+        transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
+      >
+        <Link to={to} className={combinedClass} style={{ textDecoration: 'none' }}>
+          {content}
+        </Link>
+      </motion.div>
+    );
+  }
 
   if (href) {
     return (

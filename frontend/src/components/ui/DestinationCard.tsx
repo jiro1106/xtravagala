@@ -1,8 +1,10 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import type { City } from '@/data/cities';
 
 interface DestinationCardProps {
   city: City;
+  to?: string;
 }
 
 const containerVariants = {
@@ -20,17 +22,24 @@ const arrowVariants = {
   hover: { x: 4, y: -4, backgroundColor: 'var(--primary)' },
 };
 
-export function DestinationCard({ city }: DestinationCardProps) {
+export function DestinationCard({ city, to }: DestinationCardProps) {
   return (
-    <motion.a
-      href="#"
-      className="relative overflow-hidden rounded-card-lg cursor-pointer isolate block no-underline"
+    <motion.div
+      className="relative overflow-hidden rounded-card-lg cursor-pointer isolate"
       style={{ height: '100%', width: '100%' }}
       variants={containerVariants}
       initial="rest"
       whileHover="hover"
       transition={{ duration: 0.55, ease: [0.23, 1, 0.32, 1] }}
     >
+      {to && (
+        <Link
+          to={to}
+          aria-label={`${city.name} — ${city.eventCount.toLocaleString()} events`}
+          className="absolute inset-0 z-20"
+          style={{ display: 'block' }}
+        />
+      )}
       {/* Image */}
       <motion.img
         src={city.image}
@@ -89,6 +98,6 @@ export function DestinationCard({ city }: DestinationCardProps) {
           </svg>
         </motion.span>
       </div>
-    </motion.a>
+    </motion.div>
   );
 }
