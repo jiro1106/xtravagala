@@ -60,16 +60,29 @@ export function DestinationsSection() {
             }
             @media (max-width: 1100px) {
               .destinations-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr 1fr;
                 grid-template-rows: auto;
                 height: auto;
               }
               .destinations-grid .city-large {
                 grid-row: span 1;
-                height: 320px;
+                grid-column: span 2;
+                height: 300px;
               }
               .destinations-grid .city-regular {
-                height: 240px;
+                height: 220px;
+              }
+            }
+            @media (max-width: 600px) {
+              .destinations-grid {
+                grid-template-columns: 1fr;
+              }
+              .destinations-grid .city-large {
+                grid-column: span 1;
+                height: 260px;
+              }
+              .destinations-grid .city-regular {
+                height: 200px;
               }
             }
           `}</style>
@@ -92,7 +105,6 @@ export function DestinationsSection() {
                   ease: [0.23, 1, 0.32, 1],
                   delay: 0.1 + index * 0.08,
                 }}
-                style={{ height: "100%" }}
               >
                 <DestinationCard city={city} to={`/events?city=${city.id}`} />
               </motion.div>

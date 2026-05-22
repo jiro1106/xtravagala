@@ -98,7 +98,7 @@ export function HeroSection() {
             style={{
               position: "relative",
               minHeight: 520,
-              padding: "48px 100px",
+              padding: "clamp(28px, 4vw, 48px) clamp(22px, 7vw, 100px)",
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",

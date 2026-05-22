@@ -62,6 +62,9 @@ export function HostSection() {
         {/* Host cards fan */}
         <>
           <style>{`
+            .host-fan-wrapper {
+              /* desktop: no-op */
+            }
             .host-fan {
               display: flex;
               justify-content: center;
@@ -69,31 +72,40 @@ export function HostSection() {
               padding: 40px 0 80px;
               position: relative;
             }
-            @media (max-width: 1100px) {
+            @media (max-width: 900px) {
+              .host-fan-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+              }
+              .host-fan-wrapper::-webkit-scrollbar { display: none; }
               .host-fan {
-                flex-wrap: wrap;
-                gap: 18px;
-                padding-bottom: 40px;
+                justify-content: flex-start;
+                flex-wrap: nowrap;
+                padding: 24px 0 48px;
+                width: max-content;
               }
             }
           `}</style>
-          <motion.div
-            className="host-fan"
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.8, ease: [0.23, 1, 0.36, 1], delay: 0.1 }}
-          >
-            {hostFeatures.map((feature, i) => (
-              <HostCard
-                key={feature.id}
-                feature={feature}
-                rotation={fanConfig[i].rotation}
-                zIndex={fanConfig[i].zIndex}
-                marginRight={fanConfig[i].marginRight}
-              />
-            ))}
-          </motion.div>
+          <div className="host-fan-wrapper">
+            <motion.div
+              className="host-fan"
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.8, ease: [0.23, 1, 0.36, 1], delay: 0.1 }}
+            >
+              {hostFeatures.map((feature, i) => (
+                <HostCard
+                  key={feature.id}
+                  feature={feature}
+                  rotation={fanConfig[i].rotation}
+                  zIndex={fanConfig[i].zIndex}
+                  marginRight={fanConfig[i].marginRight}
+                />
+              ))}
+            </motion.div>
+          </div>
         </>
 
         {/* Host CTA */}

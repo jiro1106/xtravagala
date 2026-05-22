@@ -306,7 +306,7 @@ export function SearchBar() {
         {/* Submit button */}
         <motion.button
           type="submit"
-          className="w-9 h-9 rounded-full bg-[var(--primary)] text-white grid place-items-center flex-shrink-0"
+          className="w-11 h-11 rounded-full bg-[var(--primary)] text-white grid place-items-center flex-shrink-0"
           whileHover={{ scale: 1.05, filter: 'brightness(1.1)' }}
           transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
           aria-label="Search"

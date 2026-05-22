@@ -69,15 +69,33 @@ export function TrustSection() {
 
   return (
     <section
+      className="section-py"
       style={{
         background: 'white',
-        padding: '90px 0 80px',
         textAlign: 'center',
         overflow: 'hidden',
       }}
     >
       <div className="wrap">
         {/* Testimonial card */}
+        <>
+          <style>{`
+            .testimonial-card {
+              padding: 40px 48px 12px;
+            }
+            .testimonial-quote {
+              font-size: 22px;
+            }
+            @media (max-width: 600px) {
+              .testimonial-card {
+                padding: 32px 28px 8px;
+              }
+              .testimonial-quote {
+                font-size: 18px;
+              }
+            }
+          `}</style>
+        </>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -87,13 +105,13 @@ export function TrustSection() {
           onMouseLeave={() => {
             startInterval();
           }}
+          className="testimonial-card"
           style={{
             maxWidth: 720,
             margin: '0 auto 56px',
             background: '#f4f4f1',
             border: '1px solid var(--border)',
             borderRadius: 22,
-            padding: '40px 48px 28px',
             position: 'relative',
             textAlign: 'center',
           }}
@@ -107,8 +125,8 @@ export function TrustSection() {
               transition={{ duration: 0.5 }}
             >
               <p
+                className="testimonial-quote"
                 style={{
-                  fontSize: 22,
                   lineHeight: 1.4,
                   letterSpacing: '-0.018em',
                   fontWeight: 400,
@@ -136,8 +154,8 @@ export function TrustSection() {
             style={{
               display: 'flex',
               justifyContent: 'center',
-              gap: 8,
-              marginTop: 24,
+              gap: 0,
+              marginTop: 16,
             }}
           >
             {testimonials.map((_, idx) => (
@@ -146,16 +164,29 @@ export function TrustSection() {
                 onClick={() => handleDotClick(idx)}
                 aria-label={`Go to testimonial ${idx + 1}`}
                 style={{
-                  width: 8,
-                  height: 8,
+                  width: 44,
+                  height: 44,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   borderRadius: '50%',
                   border: 'none',
                   cursor: 'pointer',
                   padding: 0,
-                  background: idx === active ? 'var(--primary)' : 'var(--muted)',
-                  transition: 'background 0.25s',
+                  background: 'transparent',
                 }}
-              />
+              >
+                <span
+                  style={{
+                    display: 'block',
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: idx === active ? 'var(--primary)' : 'var(--muted)',
+                    transition: 'background 0.25s',
+                  }}
+                />
+              </button>
             ))}
           </div>
         </motion.div>

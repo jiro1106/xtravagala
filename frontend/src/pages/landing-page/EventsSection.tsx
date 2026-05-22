@@ -21,8 +21,8 @@ export function EventsSection() {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "flex-end",
-            gap: 40,
-            marginBottom: 48,
+            gap: 16,
+            marginBottom: 40,
             flexWrap: "wrap",
           }}
         >
@@ -75,11 +75,13 @@ export function EventsSection() {
             @media (max-width: 1100px) {
               .events-grid {
                 grid-template-columns: repeat(2, 1fr);
+                gap: 44px 28px;
               }
             }
             @media (max-width: 720px) {
               .events-grid {
                 grid-template-columns: 1fr;
+                gap: 36px;
               }
             }
           `}</style>
