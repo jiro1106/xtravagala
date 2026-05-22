@@ -142,7 +142,7 @@ export function HeroSection() {
                     marginTop: 2,
                   }}
                 >
-                  worth showing up for.
+                  worth showing up for
                 </span>
               </h1>
 
@@ -243,7 +243,11 @@ export function HeroSection() {
                     delay: 0.15 + index * 0.05,
                   }}
                 >
-                  <CategoryItem label={cat.label} svgContent={cat.svgContent} to={`/events?category=${cat.id}`} />
+                  <CategoryItem
+                    label={cat.label}
+                    svgContent={cat.svgContent}
+                    to={`/events?category=${cat.id}`}
+                  />
                 </motion.div>
               ))}
             </div>

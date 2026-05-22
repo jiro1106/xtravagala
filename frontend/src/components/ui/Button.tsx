@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface ButtonProps {
   variant?: 'primary' | 'ghost' | 'on-dark';
-  size?: 'default' | 'sm';
+  size?: 'default' | 'sm' | 'xs';
   href?: string;
   to?: string;
   showArrow?: boolean;
@@ -48,7 +48,7 @@ export function Button({
 
   const variants: Record<string, string> = {
     primary:
-      'bg-[var(--primary)] text-white [box-shadow:0_4px_16px_-4px_oklch(55%_0.09_170_/_0.45)]',
+      'bg-[var(--primary)] text-white',
     ghost:
       'border border-[var(--border)] text-[var(--text)] bg-transparent hover:border-[var(--primary)] hover:text-[var(--primary)]',
     'on-dark':
@@ -58,6 +58,7 @@ export function Button({
   const sizes: Record<string, string> = {
     default: 'px-6 py-3.5 text-[15px]',
     sm: 'px-4 py-2.5 text-[13.5px]',
+    xs: 'px-3 py-1.5 text-[12.5px]',
   };
 
   const hoverAnimation =

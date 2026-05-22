@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useLayoutEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 
 const NAV_LINKS = [
@@ -9,6 +9,7 @@ const NAV_LINKS = [
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,8 +20,21 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useLayoutEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const update = () => {
+      document.documentElement.style.setProperty('--header-h', `${el.offsetHeight}px`);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
   return (
     <header
+      ref={headerRef}
       style={{
         position: "sticky",
         top: 0,
@@ -33,9 +47,8 @@ export function Header() {
     >
       <div
         style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
+          display: "grid",
+          gridTemplateColumns: "1fr auto 1fr",
           alignItems: "center",
           padding: "10px clamp(20px, 4vw, 48px)",
           width: "100%",
@@ -113,14 +126,15 @@ export function Header() {
         </nav>
 
         {/* Actions */}
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+        <div style={{ display: "flex", alignItems: "center", gap: "6px", justifyContent: "flex-end" }}>
           <Button variant="ghost" size="sm" to="/login">
             Sign in
           </Button>
           <Button variant="primary" size="sm" to="/signup" showArrow>
             Sign up
           </Button>
-          <div className="hidden md:block" style={{ marginLeft: "20px" }}>
+          <div className="hidden md:flex" style={{ alignItems: "center", gap: "12px", marginLeft: "12px" }}>
+            <div style={{ width: "1px", height: "16px", backgroundColor: "var(--border)" }} />
             <Button variant="ghost" size="sm" to="/host/login">
               Become a host
             </Button>

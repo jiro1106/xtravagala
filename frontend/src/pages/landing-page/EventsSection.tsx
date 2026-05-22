@@ -1,34 +1,38 @@
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { EventCard } from '@/components/ui/EventCard';
-import { events } from '@/data/events';
+import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
+import { EventCard } from "@/components/ui/EventCard";
+import { events } from "@/data/events";
 
 export function EventsSection() {
   return (
-    <section id="discover" style={{ background: 'white' }} className="section-py">
+    <section
+      id="discover"
+      style={{ background: "white" }}
+      className="section-py"
+    >
       <div className="wrap">
         {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-40px' }}
+          viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.7, ease: [0.23, 1, 0.32, 1] }}
           style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'flex-end',
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "flex-end",
             gap: 40,
             marginBottom: 48,
-            flexWrap: 'wrap',
+            flexWrap: "wrap",
           }}
         >
           <div>
             <h2
               style={{
-                fontSize: 'clamp(28px, 3vw, 40px)',
+                fontSize: "clamp(28px, 3vw, 40px)",
                 fontWeight: 600,
-                letterSpacing: '-0.025em',
-                color: 'var(--text)',
+                letterSpacing: "-0.025em",
+                color: "var(--text)",
                 lineHeight: 1.15,
               }}
             >
@@ -36,13 +40,13 @@ export function EventsSection() {
             </h2>
             <p
               style={{
-                color: 'var(--text-mute)',
+                color: "var(--text-mute)",
                 fontSize: 16,
                 marginTop: 10,
                 lineHeight: 1.5,
               }}
             >
-              Things happening in Manila this weekend.
+              Things happening in Manila this weekend
             </p>
           </div>
 
@@ -50,10 +54,10 @@ export function EventsSection() {
             to="/events"
             style={{
               fontSize: 14.5,
-              color: 'var(--primary)',
+              color: "var(--primary)",
               fontWeight: 500,
-              textDecoration: 'none',
-              whiteSpace: 'nowrap',
+              textDecoration: "none",
+              whiteSpace: "nowrap",
             }}
           >
             See all events →
@@ -87,11 +91,11 @@ export function EventsSection() {
         </>
 
         {/* Browse more link */}
-        <div style={{ display: 'flex' }}>
+        <div style={{ display: "flex" }}>
           <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
+            viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1], delay: 0.2 }}
             whileHover={{ x: 4 }}
             style={{ marginTop: 44 }}
@@ -99,13 +103,13 @@ export function EventsSection() {
             <Link
               to="/events"
               style={{
-                display: 'inline-flex',
-                alignItems: 'center',
+                display: "inline-flex",
+                alignItems: "center",
                 gap: 10,
                 fontWeight: 500,
-                color: 'var(--primary)',
+                color: "var(--primary)",
                 fontSize: 14.5,
-                textDecoration: 'none',
+                textDecoration: "none",
               }}
             >
               Browse 1,840 more events this weekend →

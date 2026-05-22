@@ -82,7 +82,7 @@ export function EventsFilterBar() {
     <div
       style={{
         position: 'sticky',
-        top: 53,
+        top: 'var(--header-h, 61px)',
         zIndex: 50,
         background: '#fff',
         borderBottom: '1px solid var(--border)',

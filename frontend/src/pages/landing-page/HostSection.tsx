@@ -54,7 +54,7 @@ export function HostSection() {
               lineHeight: 1.6,
             }}
           >
-            Everything you need to plan, run, and grow your events — in one
+            Everything you need to plan, run, and grow your events. All in one
             place.
           </p>
         </motion.div>
