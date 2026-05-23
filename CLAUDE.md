@@ -78,9 +78,9 @@ All motion uses `ease-out-quint`: `cubic-bezier(0.23, 1, 0.36, 1)`. Set as Tailw
 
 - Client: `@supabase/supabase-js`, initialized once in `src/lib/supabase.ts` and imported wherever data is fetched.
 - Env vars (Vite requires the `VITE_` prefix to expose them to the client):
-  - `VITE_SUPABASE_URL`
-  - `VITE_SUPABASE_ANON_KEY`
-  - Stored in `frontend/.env.local` for dev, and set in Vercel project env for prod. Never commit real keys; `frontend/.env.local` is gitignored.
+  - `VITE_SUPABASE_URL` — project URL (`https://<ref>.supabase.co`)
+  - `VITE_SUPABASE_ANON_KEY` — holds the **new publishable key** (`sb_publishable_...`), not the legacy anon JWT. Env var name kept for ecosystem convention.
+  - Stored in `frontend/.env.local` for dev (gitignored via `*.local` pattern), and set in Vercel project env for prod. Never commit real keys. The `sb_secret_...` service-role key is server-only and must never appear in this project.
 - Schema lives in Supabase Cloud. Row types in `src/types/db.ts` are **generated**, not hand-written — see workflow below.
 - **Row Level Security must be ON** for every table. Public-read tables (events, cities) get a `select` policy for `anon`; write paths require an authenticated user.
 - Data hooks live in `src/hooks/` (e.g. `useEvents.ts`) and wrap Supabase queries — components never call the client directly.
@@ -98,7 +98,7 @@ Never hand-edit `frontend/src/types/db.ts`. Never write migrations blind — mak
 
 ## Folder Structure
 
-The frontend lives in `frontend/` at the repo root. Backend is Supabase Cloud (no local backend folder); SQL migrations and policies live in `supabase/` at the repo root if/when we adopt the Supabase CLI.
+The frontend lives in `frontend/` at the repo root. Backend is Supabase Cloud (no local backend folder); the Supabase CLI workspace lives in `supabase/` at the repo root (already initialized and linked). Migration SQL files land in `supabase/migrations/` via `supabase db pull`.
 
 ```
 frontend/
