@@ -14,7 +14,8 @@ function parsePrice(price: string): number {
 export function EventsPage() {
   const [searchParams] = useSearchParams();
 
-  const q = (searchParams.get('q') ?? '').toLowerCase().trim();
+  const qRaw = (searchParams.get('q') ?? '').trim();
+  const q = qRaw.toLowerCase();
   const city = searchParams.get('city') ?? '';
   const category = searchParams.get('category') ?? '';
   const sort = searchParams.get('sort') ?? '';
@@ -55,6 +56,28 @@ export function EventsPage() {
       <EventsCityBanner count={filtered.length} />
 
       <div className="wrap section-py">
+        {/* "Results for <query>" label — shown when a search query is active */}
+        {qRaw && (
+          <motion.p
+            key={`results-${qRaw}`}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3, ease: [0.23, 1, 0.36, 1] }}
+            style={{
+              margin: 0,
+              marginBottom: !city ? 10 : 36,
+              fontSize: 'clamp(20px, 2.2vw, 26px)',
+              fontWeight: 600,
+              letterSpacing: '-0.022em',
+              color: 'var(--text)',
+              lineHeight: 1.2,
+            }}
+          >
+            Results for{' '}
+            <span style={{ color: 'var(--primary)' }}>"{qRaw}"</span>
+          </motion.p>
+        )}
+
         {/* Results count — hidden when a city filter is active (banner shows the count instead) */}
         {!city && (
           <motion.p
@@ -90,7 +113,7 @@ export function EventsPage() {
                 .events-full-grid { grid-template-columns: 1fr; }
               }
             `}</style>
-            <div className="events-full-grid" style={city ? { marginTop: 36 } : undefined}>
+            <div className="events-full-grid" style={city && !qRaw ? { marginTop: 36 } : undefined}>
               {filtered.map((event, index) => (
                 <EventCard key={event.id} event={event} delay={index * 0.04} />
               ))}

@@ -34,8 +34,11 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
       style={{
         position: 'relative',
         width: '100%',
-        background: 'oklch(68% 0.14 35)',
-        borderBottom: '1px solid oklch(58% 0.14 30 / 0.3)',
+        backgroundColor: '#1a1a1a',
+        backgroundImage: `url(${city.image})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        borderBottom: '1px solid rgba(0,0,0,0.15)',
         overflow: 'hidden',
       }}
     >
@@ -45,7 +48,7 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
           position: 'absolute',
           inset: 0,
           background:
-            'radial-gradient(circle at 15% 20%, oklch(78% 0.13 40 / 0.6) 0%, transparent 55%), radial-gradient(circle at 85% 90%, oklch(58% 0.14 30 / 0.55) 0%, transparent 60%)',
+            'linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.25) 100%)',
           pointerEvents: 'none',
         }}
       />
