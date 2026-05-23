@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { EventCard } from '@/components/ui/EventCard';
 import { events } from '@/data/events';
 import { EventsFilterBar } from './EventsFilterBar';
+import { EventsCityBanner } from './EventsCityBanner';
 
 function parsePrice(price: string): number {
   if (price === 'Free') return 0;
@@ -51,24 +52,28 @@ export function EventsPage() {
     <>
       <EventsFilterBar />
 
+      <EventsCityBanner count={filtered.length} />
+
       <div className="wrap section-py">
-        {/* Results count */}
-        <motion.p
-          key={filtered.length}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.25 }}
-          style={{
-            color: 'var(--text-mute)',
-            fontSize: 14,
-            marginBottom: 36,
-            fontWeight: 500,
-          }}
-        >
-          {filtered.length === events.length
-            ? `${events.length} events`
-            : `${filtered.length} of ${events.length} events`}
-        </motion.p>
+        {/* Results count — hidden when a city filter is active (banner shows the count instead) */}
+        {!city && (
+          <motion.p
+            key={filtered.length}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              color: 'var(--text-mute)',
+              fontSize: 14,
+              marginBottom: 36,
+              fontWeight: 500,
+            }}
+          >
+            {filtered.length === events.length
+              ? `${events.length} events`
+              : `${filtered.length} of ${events.length} events`}
+          </motion.p>
+        )}
 
         {filtered.length > 0 ? (
           <>
@@ -85,7 +90,7 @@ export function EventsPage() {
                 .events-full-grid { grid-template-columns: 1fr; }
               }
             `}</style>
-            <div className="events-full-grid">
+            <div className="events-full-grid" style={city ? { marginTop: 36 } : undefined}>
               {filtered.map((event, index) => (
                 <EventCard key={event.id} event={event} delay={index * 0.04} />
               ))}
