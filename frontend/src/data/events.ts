@@ -19,7 +19,7 @@ export const events: Event[] = [
   {
     id: 'e1',
     title: 'Cafe Gathering in Makati — Sunday Slow Morning',
-    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1604881989793-466aca8dd319?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sun, May 17 · 2:00 PM PHT',
     host: 'Little Japan in Manila',
@@ -38,7 +38,7 @@ export const events: Event[] = [
   {
     id: 'e2',
     title: 'Manila 🇵🇭 — Practical Philosophy Meetup',
-    image: 'https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1577975039920-8fbb74e58527?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sun, May 17 · 7:00 PM PHT',
     host: 'Practical Philosophy Club PH',
@@ -58,7 +58,7 @@ export const events: Event[] = [
   {
     id: 'e3',
     title: 'WP Manila Meetup — May 2026 (10th Year)',
-    image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=900&q=80',
     price: '₱350',
     date: 'Sat, May 23 · 1:00 PM PHT',
     host: 'WordPress Manila Meetup',
@@ -78,7 +78,7 @@ export const events: Event[] = [
   {
     id: 'e4',
     title: 'Writing for your Mental Health: Poetry 101',
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1579017308347-e53e0d2fc5e9?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sun, May 17 · 1:00 PM PHT',
     host: 'Meetup Philippines',
@@ -98,7 +98,7 @@ export const events: Event[] = [
   {
     id: 'e5',
     title: 'IN PERSON: StarRocks × Apache Kafka — Real-Time Analytics',
-    image: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1629837093109-11325d6e7afd?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Thu, May 28 · 6:30 PM PHT',
     host: 'Manila Apache Kafka Meetup',
@@ -118,7 +118,7 @@ export const events: Event[] = [
   {
     id: 'e6',
     title: '20s & 30s Global Hangout & Activities in Manila',
-    image: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1670525990631-0ceee7098a08?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sat, May 23 · 7:30 PM PHT',
     host: 'Manila Hangout & Activities',
@@ -137,7 +137,7 @@ export const events: Event[] = [
   {
     id: 'e7',
     title: 'Late Set — Rooftop Jazz Night in BGC',
-    image: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1603168956650-2b02b517829e?auto=format&fit=crop&w=900&q=80',
     price: '₱500',
     date: 'Sun, May 24 · 9:00 PM PHT',
     host: 'Northbeat Sessions',
@@ -156,7 +156,7 @@ export const events: Event[] = [
   {
     id: 'e8',
     title: 'Think Responsibly — Lectures in Bars',
-    image: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1435686858161-59da32dfd4b4?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sat, May 23 · 6:30 PM PHT',
     host: 'Think Responsibly',
@@ -177,7 +177,7 @@ export const events: Event[] = [
   {
     id: 'e9',
     title: 'Cebu Craft Beer Festival — Summer Edition',
-    image: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1774109057644-8e1ac727c1b3?auto=format&fit=crop&w=900&q=80',
     price: '₱400',
     date: 'Sat, May 30 · 4:00 PM PHT',
     host: 'Cebu Brew Society',
@@ -197,7 +197,7 @@ export const events: Event[] = [
   {
     id: 'e10',
     title: 'BGC Night Run 5K — Neon Edition',
-    image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1725435003920-7a5e26332e40?auto=format&fit=crop&w=900&q=80',
     price: '₱350',
     date: 'Sat, May 30 · 8:00 PM PHT',
     host: 'Run BGC',
@@ -217,7 +217,7 @@ export const events: Event[] = [
   {
     id: 'e11',
     title: 'Manila International Jazz Festival 2026',
-    image: 'https://images.unsplash.com/photo-1415201364774-f6f0bb35f28f?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1619229667009-e7e51684e8e6?auto=format&fit=crop&w=900&q=80',
     price: '₱1,200',
     date: 'Fri, May 29 · 7:00 PM PHT',
     host: 'Jazz Manila',
@@ -237,7 +237,7 @@ export const events: Event[] = [
   {
     id: 'e12',
     title: 'Makati Gallery Walk — Contemporary Philippine Art',
-    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1569783721854-33a99b4c0bae?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sun, May 31 · 10:00 AM PHT',
     host: 'Makati Arts Council',
@@ -256,7 +256,7 @@ export const events: Event[] = [
   {
     id: 'e13',
     title: 'Salsa Night at SocialMade — Cebu',
-    image: 'https://images.unsplash.com/photo-1504609813442-a8924e83f76e?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1575448913281-98e9e5d3f193?auto=format&fit=crop&w=900&q=80',
     price: '₱200',
     date: 'Fri, May 29 · 9:00 PM PHT',
     host: 'Cebu Salsa Community',
@@ -275,7 +275,7 @@ export const events: Event[] = [
   {
     id: 'e14',
     title: 'Poblacion Night Market — Food & Culture',
-    image: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1759200262816-0e02f17c63d3?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sat, May 23 · 5:00 PM PHT',
     host: 'Poblacion Market Collective',
@@ -294,7 +294,7 @@ export const events: Event[] = [
   {
     id: 'e15',
     title: 'Sunrise Yoga — BGC Commons',
-    image: 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1650306560962-1be6c20e1f7f?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sun, May 24 · 6:00 AM PHT',
     host: 'BGC Wellness Collective',
@@ -314,7 +314,7 @@ export const events: Event[] = [
   {
     id: 'e16',
     title: 'Davao Durian Heritage Fair 2026',
-    image: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1772626187710-a838272bcb2d?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Sat, Jun 6 · 8:00 AM PHT',
     host: 'Davao Tourism Office',
@@ -335,7 +335,7 @@ export const events: Event[] = [
   {
     id: 'e17',
     title: 'Baguio Strawberry Picking & Hillside Picnic',
-    image: 'https://images.unsplash.com/photo-1464965911861-746a04b4bca6?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1694632872166-c7ae400a5087?auto=format&fit=crop&w=900&q=80',
     price: '₱650',
     date: 'Sun, Jun 7 · 7:00 AM PHT',
     host: 'La Trinidad Farms',
@@ -355,7 +355,7 @@ export const events: Event[] = [
   {
     id: 'e18',
     title: 'Advanced Cocktail Masterclass — Makati',
-    image: 'https://images.unsplash.com/photo-1569529465841-dfecdab7503b?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1509669803555-fd5edd8d5a41?auto=format&fit=crop&w=900&q=80',
     price: '₱1,800',
     date: 'Sat, May 30 · 2:00 PM PHT',
     host: 'The Bar Academy PH',
@@ -375,7 +375,7 @@ export const events: Event[] = [
   {
     id: 'e19',
     title: 'Open Mic Night — Iloilo Heritage District',
-    image: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1608319917470-9d9179430f8d?auto=format&fit=crop&w=900&q=80',
     price: 'Free',
     date: 'Fri, May 29 · 8:00 PM PHT',
     host: 'Iloilo Creative Arts',
@@ -395,7 +395,7 @@ export const events: Event[] = [
   {
     id: 'e20',
     title: 'Philippine Startup Summit — Manila 2026',
-    image: 'https://images.unsplash.com/photo-1556761175-4b46d2f12c6a?auto=format&fit=crop&w=900&q=80',
+    image: 'https://images.unsplash.com/photo-1600320844656-a311b0477df0?auto=format&fit=crop&w=900&q=80',
     price: '₱2,500',
     date: 'Thu, Jun 4 · 9:00 AM PHT',
     host: 'Startup PH Network',
