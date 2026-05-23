@@ -16,8 +16,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 | Animations | Framer Motion |
 | Routing | react-router-dom v6 |
 | Fonts | Inter (UI) + Instrument Serif (editorial accents) via Google Fonts |
+| Backend | Supabase (Postgres + auto-generated REST/JS client + Auth + Storage) |
+| Deployment | Vercel (frontend) — Supabase project hosted on Supabase Cloud |
 
-Backend is **TBD** — all data is currently static in `src/data/`. Structure data files so they are easy to swap for API calls later.
+Backend uses **Supabase** accessed directly from the React client via `@supabase/supabase-js`. No custom Node/Express layer — Row Level Security policies on Postgres tables are the gatekeeper. Static data in `src/data/` is being progressively migrated to Supabase tables; keep the data files API-shaped so the swap stays mechanical.
 
 ## Commands
 
@@ -72,9 +74,31 @@ All motion uses `ease-out-quint`: `cubic-bezier(0.23, 1, 0.36, 1)`. Set as Tailw
 - **Section padding**: 90–110px top/bottom
 - **Border radius**: 100px (pills), 22–28px (cards), 14–16px (media thumbnails)
 
+## Backend (Supabase)
+
+- Client: `@supabase/supabase-js`, initialized once in `src/lib/supabase.ts` and imported wherever data is fetched.
+- Env vars (Vite requires the `VITE_` prefix to expose them to the client):
+  - `VITE_SUPABASE_URL`
+  - `VITE_SUPABASE_ANON_KEY`
+  - Stored in `frontend/.env.local` for dev, and set in Vercel project env for prod. Never commit real keys; `frontend/.env.local` is gitignored.
+- Schema lives in Supabase Cloud. Row types in `src/types/db.ts` are **generated**, not hand-written — see workflow below.
+- **Row Level Security must be ON** for every table. Public-read tables (events, cities) get a `select` policy for `anon`; write paths require an authenticated user.
+- Data hooks live in `src/hooks/` (e.g. `useEvents.ts`) and wrap Supabase queries — components never call the client directly.
+
+### Supabase workflow (cloud-only, linked)
+
+This project uses **one shared Supabase Cloud project for dev and prod** — no local Docker stack (`supabase start` not used). The local `supabase/` folder is linked to the cloud project via `supabase link --project-ref <ref>`, so the CLI talks straight to the live DB.
+
+**Ritual for any schema change:**
+1. Make the change in Supabase Studio (web UI) — create/alter tables, add policies, etc.
+2. From the repo root: `supabase db pull` — captures the schema delta as a timestamped SQL file in `supabase/migrations/`. Commit it.
+3. `supabase gen types typescript --linked > frontend/src/types/db.ts` — regenerates row types from the live schema. Commit it.
+
+Never hand-edit `frontend/src/types/db.ts`. Never write migrations blind — make the change in Studio first, then `db pull`.
+
 ## Folder Structure
 
-The frontend lives in `frontend/` at the repo root. The backend (TBD) will live in a sibling folder (e.g. `backend/`).
+The frontend lives in `frontend/` at the repo root. Backend is Supabase Cloud (no local backend folder); SQL migrations and policies live in `supabase/` at the repo root if/when we adopt the Supabase CLI.
 
 ```
 frontend/
@@ -92,12 +116,17 @@ frontend/
       TrustSection.tsx
       ExperienceSection.tsx
       FinalCTASection.tsx
-  data/            # Static typed data (swap for API calls later)
+  data/            # Static typed data — being migrated to Supabase
     events.ts
     cities.ts
     categories.ts
     testimonials.ts
     logos.ts
+  hooks/           # Data hooks wrapping Supabase queries (useEvents, useCities, ...)
+  lib/
+    supabase.ts    # Supabase client singleton
+  types/
+    db.ts          # Row types mirroring Supabase schema
   App.tsx          # BrowserRouter + Routes (react-router-dom v6)
   main.tsx
   index.css        # Google Fonts, CSS custom props, Tailwind directives
