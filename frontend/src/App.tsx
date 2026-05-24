@@ -9,6 +9,9 @@ import { HostLoginPage } from "@/pages/host-login-page";
 import { EventsPage } from "@/pages/events-page";
 import { DestinationsPage } from "@/pages/destinations-page";
 import { EventDetailPage } from "@/pages/event-page";
+import { AuthCallbackPage } from "@/pages/auth-callback-page";
+import { ForgotPasswordPage } from "@/pages/forgot-password-page";
+import { ResetPasswordPage } from "@/pages/reset-password-page";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -42,6 +45,9 @@ export default function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/host/login" element={<HostLoginPage />} />
+        <Route path="/auth/callback" element={<AuthCallbackPage />} />
+        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+        <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
       </Routes>
     </BrowserRouter>
   );

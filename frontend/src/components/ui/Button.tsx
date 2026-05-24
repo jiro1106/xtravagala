@@ -11,6 +11,7 @@ interface ButtonProps {
   className?: string;
   onClick?: () => void;
   type?: 'button' | 'submit' | 'reset';
+  disabled?: boolean;
 }
 
 const ArrowIcon = () => (
@@ -42,6 +43,7 @@ export function Button({
   className = '',
   onClick,
   type,
+  disabled = false,
 }: ButtonProps) {
   const base =
     'inline-flex items-center gap-2.5 rounded-pill font-medium whitespace-nowrap transition-all duration-300 [transition-timing-function:cubic-bezier(0.23,1,0.32,1)] select-none cursor-pointer';
@@ -61,12 +63,13 @@ export function Button({
     xs: 'px-3 py-1.5 text-[12.5px]',
   };
 
-  const hoverAnimation =
-    variant === 'primary'
-      ? { y: -1, filter: 'brightness(1.1)' }
-      : variant === 'ghost'
-      ? { y: -1 }
-      : {};
+  const hoverAnimation = disabled
+    ? {}
+    : variant === 'primary'
+    ? { y: -1, filter: 'brightness(1.1)' }
+    : variant === 'ghost'
+    ? { y: -1 }
+    : {};
 
   const combinedClass = `${base} ${variants[variant]} ${sizes[size]} ${className}`;
 
@@ -107,10 +110,11 @@ export function Button({
   return (
     <motion.button
       type={type ?? 'button'}
-      className={combinedClass}
+      className={`${combinedClass} ${disabled ? 'opacity-60 cursor-not-allowed' : ''}`}
       whileHover={hoverAnimation}
       transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
       onClick={onClick}
+      disabled={disabled}
     >
       {content}
     </motion.button>
