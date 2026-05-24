@@ -9,6 +9,7 @@ Replace static `src/data/*` imports across the app with Supabase queries via dat
 
 ## Scope
 
+- One-shot **seed script** that loads the existing static event data into Supabase (fake host accounts + events)
 - 5 data hooks: `useEvents`, `useEventDetail`, `useCities`, `useCategories`, `useRsvp`
 - A shared `EventVM` view-model so consumer components change minimally
 - Swap all data-bound components from `src/data/*` to hooks
@@ -17,11 +18,15 @@ Replace static `src/data/*` imports across the app with Supabase queries via dat
 
 **Out of scope:** "My RSVPs" / attendee history page, DB-side full-text search (client-side filtering stays), pagination, realtime subscriptions, RSVP notifications, calendar export.
 
+**Schema:** No schema changes needed. `schedule jsonb` was added in the initial migration (default `'[]'`); `price_php numeric(10,2)`, `slug text unique`, `status text default 'draft'` already exist.
+
 ## Architecture
 
 **Pattern:** plain `useState` + `useEffect` hooks. No fetching library — keeps the dep tree small for fast-path delivery. Each hook returns `{ data, loading, error, refetch }`.
 
 ```
+frontend/scripts/
+  seed-events.ts      one-shot Node script (Task 0 — run once)
 src/hooks/
   useEvents.ts        list, supports { city?, category?, q? } filters
   useEventDetail.ts   single event + host profile
@@ -33,32 +38,111 @@ src/types/api.ts      EventVM, CityVM, CategoryVM, HostVM
 
 Hooks live independently of components — every consumer imports its hook directly, never `supabase` itself.
 
+## Seeding (Task 0)
+
+A one-shot Node script populates Supabase with the existing static events so we never have to hand-enter data. Lives at `frontend/scripts/seed-events.ts`, run with `npx tsx scripts/seed-events.ts`.
+
+**RLS-respecting flow** (events_insert_host_self requires `auth.uid() = host_id` AND `is_host=true`):
+
+Group events by their `host` string, then for each group:
+
+1. **Sign in or sign up** the seed host with deterministic credentials:
+   - email: `seed-${slugify(host)}@xtravagala.dev`
+   - password: a fixed dev password baked into the script (e.g. `REDACTED_SEED_CREDENTIAL`)
+   - Try `signInWithPassword` first; on `invalid_credentials`, fall back to `signUp({ options: { data: { full_name: host } } })`
+   - The `handle_new_user` trigger creates the matching `profiles` row with `full_name` populated
+2. **Promote profile to host** (signed in as that user, so `profiles_update_self_or_admin` allows it):
+   ```
+   update profiles set
+     is_host = true,
+     host_name = <original host string>,
+     host_bio = 'Seeded host — placeholder bio',
+     avatar_url = 'https://api.dicebear.com/9.x/initials/svg?seed=' + encodeURIComponent(host)
+   where id = auth.uid()
+   ```
+   Avatar URL is required by the `host_requires_avatar_and_name` check constraint; Dicebear initials provide a stable placeholder with zero dependencies.
+3. **Insert this host's events** (still signed in as the host):
+   ```
+   insert into events {
+     host_id: auth.uid(),
+     slug: slugify(title) + '-' + 6-char-random,
+     title, description, venue, address,
+     cover_image_url: event.image,
+     city_id: event.city,
+     category_id: event.category,
+     start_at: parseDate(event.date),
+     price_php: event.price === 'Free' ? 0 : parsePeso(event.price),
+     capacity: null,
+     schedule: event.schedule ?? [],
+     status: 'published',
+     published_at: now()
+   } on conflict (slug) do nothing
+   ```
+4. **Sign out** before moving to the next host group.
+
+**Date parsing:** Convert `"Sun, May 17 · 2:00 PM PHT"` to UTC ISO via regex. Year defaults to 2026. Events failing parsing are logged and skipped.
+
+**Idempotent:** safe to re-run. Existing events skip on `slug` conflict; existing host profiles reuse the same id (sign-in succeeds on the second run).
+
+**Env requirements:**
+- Reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from `frontend/.env.local` (loaded via `dotenv`)
+- No service-role key — uses anon-key signUp/signIn + RLS-policy-respecting inserts
+- Adds `tsx` and `dotenv` as devDependencies. One-line npm script: `"seed:events": "tsx scripts/seed-events.ts"`
+
+## Schema (no changes required)
+
+A re-read of `20260523000000_initial_schema.sql` confirms the events table already has every field the seeder needs:
+
+- `id uuid` (auto-generated, new UUIDs per seed event)
+- `slug text unique` (derived from title at seed time)
+- `title`, `description`, `cover_image_url`, `venue`, `address` (all nullable except `title`)
+- `category_id text` → `categories.id` (slug like `'hobbies'`)
+- `city_id text` → `cities.id` (slug like `'makati'`)
+- `start_at timestamptz`, optional `end_at`
+- `price_php numeric(10,2)` — **note the `_php` suffix; no separate `currency` column**
+- `capacity int` (nullable → unlimited)
+- `schedule jsonb default '[]'` (already present)
+- `status text default 'draft'` — seeds must explicitly set `status='published'` and `published_at=now()` for events to appear in the anon-readable view
+
+The event detail page reads `eventVM.schedule` directly from this column.
+
 ## Data Shape: `EventVM`
 
 The DB view `events_with_counts` returns the raw row plus `attendee_count`. We map that to a UI-friendly `EventVM` inside each hook so components don't deal with timestamps and FKs:
 
+To minimize churn in existing components (which read `event.date`, `event.price`, `event.attendees`, etc.), the mapper produces a shape that's near-drop-in compatible with the current static `Event` interface — just enriched with structured fields:
+
 ```ts
 interface EventVM {
-  id: string;
+  id: string;                 // uuid
+  slug: string;
   title: string;
   description: string | null;
   image: string;              // cover_image_url, fallback to placeholder
-  city: { id: string; name: string };
-  category: { id: string; label: string };
-  host: { id: string; name: string; bio: string | null };
-  startAt: Date;              // parsed from start_at
-  dateLabel: string;          // formatEventDateTime(startAt)
-  price: number;
-  priceLabel: string;         // formatPrice(price, currency) — "Free" if 0
+  cityId: string;             // for filtering/similar-event matching
+  categoryId: string;
+  cityName: string;           // resolved for display
+  categoryLabel: string;
+  host: string;               // resolved host_name (pre-resolved string, so EventCard stays unchanged)
+  hostId: string;
+  hostBio: string | null;
+  startAt: Date;
+  date: string;               // formatEventDateTime(startAt) — same field name as current Event interface
+  pricePhp: number;
+  price: string;              // formatPrice(pricePhp) — "Free" if 0, else "₱<n>"; same name as current Event
   capacity: number | null;
-  attendees: number;          // from view
-  isFull: boolean;            // capacity != null && attendees >= capacity
+  attendees: number;          // from events_with_counts.attendee_count
+  isFull: boolean;
   venue: string | null;
   address: string | null;
+  schedule: Array<{ time: string; label: string }>;
+  // backward-compat aliases consumers already use:
+  city: string;               // alias of cityId — so `e.city === 'makati'` filter keeps working
+  category: string;           // alias of categoryId
 }
 ```
 
-`formatEventDateTime` and `formatPrice` already exist in `src/lib/time.ts`.
+`formatEventDateTime` and `formatPrice` already exist in `src/lib/time.ts`. Keeping the legacy field names (`city`, `category`, `host`, `date`, `price`, `attendees`) means `EventCard`, the EventsPage filter logic, and the EventDetailPage all keep compiling with zero changes; only the `import type` line moves from `@/data/events` to `@/types/api`.
 
 ## Queries
 
@@ -126,6 +210,7 @@ Retry calls the hook's `refetch()`.
 ## Files Touched
 
 **Create:**
+- `frontend/scripts/seed-events.ts` (one-shot seeder)
 - `src/hooks/useEvents.ts`
 - `src/hooks/useEventDetail.ts`
 - `src/hooks/useCities.ts`
@@ -171,3 +256,6 @@ If `profiles` SELECT is locked down for `anon`, the design degrades gracefully: 
 | Static data files | Keep on disk, stop importing | Easy rollback; cleanup later |
 | Pagination | Skipped | Dataset is small for MVP |
 | Realtime | Skipped | Manual refetch on toggle is enough |
+| Seed approach | TS script with anon-key signUp for fake hosts | No service-role key needed; reuses existing TS data verbatim; idempotent |
+| Fake host emails | `seed-<slug>@xtravagala.dev` | `.dev` TLD won't collide with real users; deterministic so re-runs are safe |
+| Date parsing | Regex parse of existing PHT-formatted strings, year defaults to 2026 | Avoids editing every event in events.ts |

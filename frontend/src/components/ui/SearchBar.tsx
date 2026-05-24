@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { events, type Event } from '@/data/events';
-import { cities } from '@/data/cities';
+import { useEvents } from '@/hooks/useEvents';
+import { useCities } from '@/hooks/useCities';
+import type { EventVM } from '@/types/api';
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
-function filterEvents(query: string): Event[] {
+function filterEvents(events: EventVM[], query: string): EventVM[] {
   if (!query.trim()) return [];
   const q = query.toLowerCase();
   return events
@@ -48,12 +49,11 @@ function ResultRow({
   active,
   onSelect,
 }: {
-  event: Event;
+  event: EventVM;
   active: boolean;
   onSelect: () => void;
 }) {
-  const cityData = cities.find((c) => c.id === event.city);
-  const cityLabel = cityData?.name ?? event.city;
+  const cityLabel = event.cityName || event.city;
   const isFree = event.price === 'Free';
 
   return (
@@ -109,8 +109,10 @@ export function SearchBar() {
   const [geoLoading, setGeoLoading] = useState(false);
 
   const navigate = useNavigate();
+  const { data: allEvents } = useEvents();
+  const { data: cities } = useCities();
 
-  const searchResults = filterEvents(query);
+  const searchResults = filterEvents(allEvents, query);
   const showSearchDropdown = searchFocused && query.trim().length > 0;
 
   // Only filter when the user is actively typing (selectedCityId cleared by onChange).

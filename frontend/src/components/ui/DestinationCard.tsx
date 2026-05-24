@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import type { City } from '@/data/cities';
+import type { CityVM } from '@/types/api';
 
 interface DestinationCardProps {
-  city: City;
+  city: CityVM;
   to?: string;
 }
 

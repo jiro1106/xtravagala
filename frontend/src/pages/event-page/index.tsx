@@ -1,6 +1,8 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { events } from '@/data/events';
+import { useEventDetail } from '@/hooks/useEventDetail';
+import { useEvents } from '@/hooks/useEvents';
+import { RsvpButton } from '@/components/ui/RsvpButton';
 
 const ease = [0.23, 1, 0.36, 1] as const;
 
@@ -29,7 +31,18 @@ function BackButton() {
 
 export function EventDetailPage() {
   const { id } = useParams<{ id: string }>();
-  const event = events.find((e) => e.id === id);
+  const { data: event, loading } = useEventDetail(id);
+  const { data: categoryEvents } = useEvents(
+    event ? { category: event.category } : {},
+  );
+
+  if (loading) {
+    return (
+      <div style={{ display: 'flex', minHeight: '60vh', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary" />
+      </div>
+    );
+  }
 
   if (!event) {
     return (
@@ -68,8 +81,8 @@ export function EventDetailPage() {
     );
   }
 
-  const similarEvents = events
-    .filter((e) => e.category === event.category && e.id !== event.id)
+  const similarEvents = categoryEvents
+    .filter((e) => e.id !== event.id)
     .slice(0, 3);
 
   const showBadge = event.attendees < 20;
@@ -326,33 +339,11 @@ export function EventDetailPage() {
             >
               {event.date}
             </div>
-            <Link
-              to="/login"
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                background: 'var(--primary)',
-                color: '#fff',
-                fontSize: 15,
-                fontWeight: 600,
-                padding: '13px 20px',
-                borderRadius: 100,
-                textDecoration: 'none',
-                marginBottom: 12,
-                transition: 'background-color 0.2s',
-              }}
-            >
-              Sign in to register →
-            </Link>
-            <div
-              style={{
-                fontSize: 12,
-                color: 'var(--text-mute)',
-                textAlign: 'center',
-              }}
-            >
-              {event.attendees} people going
-            </div>
+            <RsvpButton
+              eventId={event.id}
+              initialCount={event.attendees}
+              isFull={event.isFull}
+            />
           </div>
         </motion.div>
       </div>

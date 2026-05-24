@@ -4,12 +4,13 @@ import { Link } from "react-router-dom";
 import { SearchBar } from "@/components/ui/SearchBar";
 import { Button } from "@/components/ui/Button";
 import { CategoryItem } from "@/components/ui/CategoryItem";
-import { categories } from "@/data/categories";
+import { useCategories } from "@/hooks/useCategories";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
 export function HeroSection() {
   const [hovered, setHovered] = useState(false);
+  const { data: categories } = useCategories();
 
   return (
     <section

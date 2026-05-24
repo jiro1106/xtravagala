@@ -1,9 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { EventCard } from "@/components/ui/EventCard";
-import { events } from "@/data/events";
+import { EventCardSkeleton } from "@/components/ui/EventCardSkeleton";
+import { LoadError } from "@/components/ui/LoadError";
+import { useEvents } from "@/hooks/useEvents";
 
 export function EventsSection() {
+  const { data: events, loading, error, refetch } = useEvents();
+  const featured = events.slice(0, 6);
   return (
     <section
       id="discover"
@@ -85,10 +89,17 @@ export function EventsSection() {
               }
             }
           `}</style>
+          {error && (
+            <div style={{ maxWidth: 720, margin: '0 auto 24px' }}>
+              <LoadError message={error} onRetry={() => void refetch()} />
+            </div>
+          )}
           <div className="events-grid">
-            {events.slice(0, 12).map((event, index) => (
-              <EventCard key={event.id} event={event} delay={index * 0.08} />
-            ))}
+            {loading
+              ? [0, 1, 2, 3, 4, 5].map((i) => <EventCardSkeleton key={i} />)
+              : featured.map((event, index) => (
+                  <EventCard key={event.id} event={event} delay={index * 0.08} />
+                ))}
           </div>
         </>
 

@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { DestinationCard } from "@/components/ui/DestinationCard";
-import { cities } from "@/data/cities";
+import { useCities } from "@/hooks/useCities";
 
 export function DestinationsSection() {
+  const { data: cities } = useCities();
   return (
     <section
       id="destinations"
@@ -96,7 +97,7 @@ export function DestinationsSection() {
             {cities.slice(0, 4).map((city, index) => (
               <motion.div
                 key={city.id}
-                className={city.large ? "city-large" : "city-regular"}
+                className={index === 0 ? "city-large" : "city-regular"}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-40px" }}

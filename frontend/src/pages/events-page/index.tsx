@@ -2,52 +2,41 @@ import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { EventCard } from '@/components/ui/EventCard';
-import { events } from '@/data/events';
+import { EventCardSkeleton } from '@/components/ui/EventCardSkeleton';
+import { LoadError } from '@/components/ui/LoadError';
+import { useEvents } from '@/hooks/useEvents';
 import { EventsFilterBar } from './EventsFilterBar';
 import { EventsCityBanner } from './EventsCityBanner';
-
-function parsePrice(price: string): number {
-  if (price === 'Free') return 0;
-  return parseInt(price.replace(/[₱,]/g, ''), 10) || 0;
-}
 
 export function EventsPage() {
   const [searchParams] = useSearchParams();
 
   const qRaw = (searchParams.get('q') ?? '').trim();
-  const q = qRaw.toLowerCase();
   const city = searchParams.get('city') ?? '';
   const category = searchParams.get('category') ?? '';
   const sort = searchParams.get('sort') ?? '';
 
+  const { data: events, loading, error, refetch } = useEvents({
+    city: city || undefined,
+    category: category || undefined,
+    q: qRaw || undefined,
+  });
+
   const filtered = useMemo(() => {
-    let result = [...events];
-
-    if (q) {
-      result = result.filter(
-        (e) =>
-          e.title.toLowerCase().includes(q) ||
-          e.host.toLowerCase().includes(q)
-      );
-    }
-
-    if (city) result = result.filter((e) => e.city === city);
-    if (category) result = result.filter((e) => e.category === category);
-
+    const result = [...events];
     switch (sort) {
       case 'price-asc':
-        result.sort((a, b) => parsePrice(a.price) - parsePrice(b.price));
+        result.sort((a, b) => a.pricePhp - b.pricePhp);
         break;
       case 'price-desc':
-        result.sort((a, b) => parsePrice(b.price) - parsePrice(a.price));
+        result.sort((a, b) => b.pricePhp - a.pricePhp);
         break;
       case 'popularity':
         result.sort((a, b) => b.attendees - a.attendees);
         break;
     }
-
     return result;
-  }, [q, city, category, sort]);
+  }, [events, sort]);
 
   return (
     <>
@@ -92,33 +81,39 @@ export function EventsPage() {
               fontWeight: 500,
             }}
           >
-            {filtered.length === events.length
-              ? `${events.length} events`
-              : `${filtered.length} of ${events.length} events`}
+            {filtered.length} events
           </motion.p>
         )}
 
-        {filtered.length > 0 ? (
-          <>
-            <style>{`
-              .events-full-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 52px 32px;
-              }
-              @media (max-width: 1100px) {
-                .events-full-grid { grid-template-columns: repeat(2, 1fr); }
-              }
-              @media (max-width: 640px) {
-                .events-full-grid { grid-template-columns: 1fr; }
-              }
-            `}</style>
-            <div className="events-full-grid" style={city && !qRaw ? { marginTop: 36 } : undefined}>
-              {filtered.map((event, index) => (
-                <EventCard key={event.id} event={event} delay={index * 0.04} />
-              ))}
-            </div>
-          </>
+        {error && (
+          <div style={{ marginBottom: 24 }}>
+            <LoadError message={error} onRetry={() => void refetch()} />
+          </div>
+        )}
+
+        <style>{`
+          .events-full-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 52px 32px;
+          }
+          @media (max-width: 1100px) {
+            .events-full-grid { grid-template-columns: repeat(2, 1fr); }
+          }
+          @media (max-width: 640px) {
+            .events-full-grid { grid-template-columns: 1fr; }
+          }
+        `}</style>
+        {loading ? (
+          <div className="events-full-grid" style={city && !qRaw ? { marginTop: 36 } : undefined}>
+            {[0, 1, 2, 3, 4, 5].map((i) => <EventCardSkeleton key={i} />)}
+          </div>
+        ) : filtered.length > 0 ? (
+          <div className="events-full-grid" style={city && !qRaw ? { marginTop: 36 } : undefined}>
+            {filtered.map((event, index) => (
+              <EventCard key={event.id} event={event} delay={index * 0.04} />
+            ))}
+          </div>
         ) : (
           <div
             style={{

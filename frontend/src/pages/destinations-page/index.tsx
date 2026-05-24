@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import { DestinationCard } from '@/components/ui/DestinationCard';
-import { cities } from '@/data/cities';
-
-const totalEvents = cities.reduce((sum, c) => sum + c.eventCount, 0);
+import { useCities } from '@/hooks/useCities';
 
 export function DestinationsPage() {
+  const { data: cities } = useCities();
+  const totalEvents = cities.reduce((sum, c) => sum + c.eventCount, 0);
   return (
     <div style={{ background: 'var(--bg)' }}>
       {/* Page header */}

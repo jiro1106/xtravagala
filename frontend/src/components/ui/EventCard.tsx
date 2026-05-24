@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import type { Event } from '@/data/events';
+import type { EventVM } from '@/types/api';
 
 interface EventCardProps {
-  event: Event;
+  event: EventVM;
   delay?: number;
 }
 

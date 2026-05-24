@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { categories } from '@/data/categories';
-import { cities } from '@/data/cities';
+import { useCategories } from '@/hooks/useCategories';
+import { useCities } from '@/hooks/useCities';
 
 const SearchIcon = () => (
   <svg
@@ -39,6 +39,8 @@ const selectStyle: React.CSSProperties = {
 
 export function EventsFilterBar() {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { data: cities } = useCities();
+  const { data: categories } = useCategories();
 
   const q = searchParams.get('q') ?? '';
   const cityParam = searchParams.get('city') ?? '';

@@ -1,6 +1,6 @@
 import { useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { cities } from '@/data/cities';
+import { useCities } from '@/hooks/useCities';
 
 interface EventsCityBannerProps {
   count: number;
@@ -9,6 +9,7 @@ interface EventsCityBannerProps {
 export function EventsCityBanner({ count }: EventsCityBannerProps) {
   const [searchParams, setSearchParams] = useSearchParams();
   const cityId = searchParams.get('city') ?? '';
+  const { data: cities } = useCities();
   const city = cities.find((c) => c.id === cityId);
 
   function clearCity() {
