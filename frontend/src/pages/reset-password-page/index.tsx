@@ -4,6 +4,7 @@ import { AuthIllustration } from '@/components/ui/AuthIllustration';
 import { EyeIcon } from '@/components/ui/AuthIcons';
 import { Button } from '@/components/ui/Button';
 import { supabase } from '@/lib/supabase';
+import { friendlyAuthError } from '@/lib/auth-errors';
 
 export function ResetPasswordPage() {
   const navigate = useNavigate();
@@ -23,7 +24,7 @@ export function ResetPasswordPage() {
       return;
     }
     supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
-      if (error) setError(error.message);
+      if (error) setError(friendlyAuthError(error));
       setExchanging(false);
     });
   }, [searchParams]);
@@ -34,7 +35,7 @@ export function ResetPasswordPage() {
     setError('');
     const { error } = await supabase.auth.updateUser({ password });
     if (error) {
-      setError(error.message);
+      setError(friendlyAuthError(error));
       setLoading(false);
     } else {
       navigate('/login', { replace: true });

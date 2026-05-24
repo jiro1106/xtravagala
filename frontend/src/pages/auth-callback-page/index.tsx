@@ -8,21 +8,39 @@ export function AuthCallbackPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const code = searchParams.get('code');
     const next = searchParams.get('next') ?? '/';
 
-    if (!code) {
-      navigate(next, { replace: true });
-      return;
-    }
-
-    supabase.auth.exchangeCodeForSession(code).then(({ error }) => {
-      if (error) {
-        setError(error.message);
-      } else {
-        navigate(next, { replace: true });
+    // Supabase JS client has detectSessionInUrl=true by default — it auto-exchanges
+    // the OAuth/PKCE code in the URL into a session on init. We just wait for that
+    // to land, then redirect. Polling getSession briefly handles the race where the
+    // exchange happens slightly after this component mounts.
+    let cancelled = false;
+    let attempts = 0;
+    const maxAttempts = 30; // 30 * 100ms = 3s
+    const interval = setInterval(async () => {
+      if (cancelled) return;
+      const { data: { session }, error: sessionErr } = await supabase.auth.getSession();
+      if (sessionErr) {
+        setError(sessionErr.message);
+        clearInterval(interval);
+        return;
       }
-    });
+      if (session) {
+        clearInterval(interval);
+        navigate(next, { replace: true });
+        return;
+      }
+      attempts++;
+      if (attempts >= maxAttempts) {
+        clearInterval(interval);
+        setError('Sign-in took too long. Please try again.');
+      }
+    }, 100);
+
+    return () => {
+      cancelled = true;
+      clearInterval(interval);
+    };
   }, [navigate, searchParams]);
 
   if (error) {

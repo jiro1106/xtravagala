@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { AuthIllustration } from '@/components/ui/AuthIllustration';
 import { Button } from '@/components/ui/Button';
 import { supabase } from '@/lib/supabase';
+import { friendlyAuthError } from '@/lib/auth-errors';
 
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
@@ -18,7 +19,7 @@ export function ForgotPasswordPage() {
       redirectTo: `${window.location.origin}/auth/reset-password`,
     });
     if (error) {
-      setError(error.message);
+      setError(friendlyAuthError(error));
       setLoading(false);
     } else {
       setSubmitted(true);

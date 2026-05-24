@@ -51,6 +51,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function signOut() {
     await supabase.auth.signOut();
+    // Hard navigation to home so the page reloads and the logout transition
+    // is unmistakable (clears any contextual state on RSVP / detail pages).
+    window.location.assign('/');
   }
 
   return (

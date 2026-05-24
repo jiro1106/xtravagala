@@ -6,6 +6,7 @@ import { EyeIcon, GoogleIcon } from '@/components/ui/AuthIcons';
 import { Button } from '@/components/ui/Button';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
+import { friendlyAuthError } from '@/lib/auth-errors';
 
 export function SignUpPage() {
   const { user } = useAuth();
@@ -35,7 +36,7 @@ export function SignUpPage() {
       options: { data: { full_name: name } },
     });
     if (error) {
-      setError(error.message);
+      setError(friendlyAuthError(error));
       setLoading(false);
     } else if (data.session) {
       navigate(next, { replace: true });

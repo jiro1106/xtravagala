@@ -6,6 +6,7 @@ import { EyeIcon, GoogleIcon } from '@/components/ui/AuthIcons';
 import { Button } from '@/components/ui/Button';
 import { supabase } from '@/lib/supabase';
 import { useAuth } from '@/hooks/useAuth';
+import { friendlyAuthError } from '@/lib/auth-errors';
 
 export function LoginPage() {
   const { user } = useAuth();
@@ -29,7 +30,7 @@ export function LoginPage() {
     setError('');
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
-      setError(error.message);
+      setError(friendlyAuthError(error));
       setLoading(false);
     } else {
       navigate(next, { replace: true });
