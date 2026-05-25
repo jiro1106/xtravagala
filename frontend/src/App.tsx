@@ -12,6 +12,13 @@ import { EventDetailPage } from "@/pages/event-page";
 import { AuthCallbackPage } from "@/pages/auth-callback-page";
 import { ForgotPasswordPage } from "@/pages/forgot-password-page";
 import { ResetPasswordPage } from "@/pages/reset-password-page";
+import { ProfilePage } from "@/pages/profile-page";
+import { HostUpgradePage } from "@/pages/host-upgrade-page";
+import { HostDashboardLayout } from "@/pages/host-dashboard-page/HostDashboardLayout";
+import { HostDashboardPage } from "@/pages/host-dashboard-page";
+import { HostEventEditorPage } from "@/pages/host-event-editor-page";
+import { RequireAuth } from "@/components/auth/RequireAuth";
+import { RequireHost } from "@/components/auth/RequireHost";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -41,6 +48,13 @@ export default function App() {
           <Route path="/events" element={<EventsPage />} />
           <Route path="/events/:id" element={<EventDetailPage />} />
           <Route path="/destinations" element={<DestinationsPage />} />
+          <Route path="/profile" element={<RequireAuth><ProfilePage /></RequireAuth>} />
+          <Route path="/host/upgrade" element={<RequireAuth><HostUpgradePage /></RequireAuth>} />
+        </Route>
+        <Route element={<RequireHost><HostDashboardLayout /></RequireHost>}>
+          <Route path="/host/dashboard" element={<HostDashboardPage />} />
+          <Route path="/host/events/new" element={<HostEventEditorPage />} />
+          <Route path="/host/events/:id/edit" element={<HostEventEditorPage />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage />} />

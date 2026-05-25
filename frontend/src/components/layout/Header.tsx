@@ -223,6 +223,14 @@ export function Header() {
                     >
                       My profile
                     </a>
+                    <a
+                      href={profile?.is_host ? '/host/dashboard' : '/host/upgrade'}
+                      style={{ display: 'block', padding: '10px 16px', fontSize: '13.5px', color: 'var(--text)', textDecoration: 'none', borderTop: '1px solid var(--border)' }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'var(--surface)'; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ''; }}
+                    >
+                      {profile?.is_host ? 'Host dashboard' : 'Become a host'}
+                    </a>
                     <button
                       type="button"
                       onClick={() => { setUserMenuOpen(false); void signOut(); }}
@@ -249,10 +257,14 @@ export function Header() {
             </div>
           )}
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '12px' }}>
-            <div style={{ width: '1px', height: '16px', backgroundColor: 'var(--border)' }} />
-            <Button variant="ghost" size="sm" to="/host/login">Become a host</Button>
-          </div>
+          {(!user || !profile?.is_host) && (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginLeft: '12px' }}>
+              <div style={{ width: '1px', height: '16px', backgroundColor: 'var(--border)' }} />
+              <Button variant="ghost" size="sm" to={user ? '/host/upgrade' : '/host/login'}>
+                {user ? 'Become a host' : 'Become a host'}
+              </Button>
+            </div>
+          )}
         </div>
 
         <button
@@ -358,9 +370,16 @@ export function Header() {
                 </motion.div>
               )}
 
-              <motion.div variants={itemVariants} style={{ display: 'grid', marginTop: '10px' }}>
-                <Button variant="ghost" size="default" to="/host/login" className="w-full justify-center">Become a host</Button>
-              </motion.div>
+              {(!user || !profile?.is_host) && (
+                <motion.div variants={itemVariants} style={{ display: 'grid', marginTop: '10px' }}>
+                  <Button variant="ghost" size="default" to={user ? '/host/upgrade' : '/host/login'} className="w-full justify-center">Become a host</Button>
+                </motion.div>
+              )}
+              {user && profile?.is_host && (
+                <motion.div variants={itemVariants} style={{ display: 'grid', marginTop: '10px' }}>
+                  <Button variant="primary" size="default" to="/host/dashboard" className="w-full justify-center">Host dashboard</Button>
+                </motion.div>
+              )}
             </motion.nav>
           </>
         )}

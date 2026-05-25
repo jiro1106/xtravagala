@@ -85,6 +85,7 @@ Group events by their `host` string, then for each group:
 **Idempotent:** safe to re-run. Existing events skip on `slug` conflict; existing host profiles reuse the same id (sign-in succeeds on the second run).
 
 **Env requirements:**
+
 - Reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` from `frontend/.env.local` (loaded via `dotenv`)
 - No service-role key — uses anon-key signUp/signIn + RLS-policy-respecting inserts
 - Adds `tsx` and `dotenv` as devDependencies. One-line npm script: `"seed:events": "tsx scripts/seed-events.ts"`
@@ -114,31 +115,31 @@ To minimize churn in existing components (which read `event.date`, `event.price`
 
 ```ts
 interface EventVM {
-  id: string;                 // uuid
+  id: string; // uuid
   slug: string;
   title: string;
   description: string | null;
-  image: string;              // cover_image_url, fallback to placeholder
-  cityId: string;             // for filtering/similar-event matching
+  image: string; // cover_image_url, fallback to placeholder
+  cityId: string; // for filtering/similar-event matching
   categoryId: string;
-  cityName: string;           // resolved for display
+  cityName: string; // resolved for display
   categoryLabel: string;
-  host: string;               // resolved host_name (pre-resolved string, so EventCard stays unchanged)
+  host: string; // resolved host_name (pre-resolved string, so EventCard stays unchanged)
   hostId: string;
   hostBio: string | null;
   startAt: Date;
-  date: string;               // formatEventDateTime(startAt) — same field name as current Event interface
+  date: string; // formatEventDateTime(startAt) — same field name as current Event interface
   pricePhp: number;
-  price: string;              // formatPrice(pricePhp) — "Free" if 0, else "₱<n>"; same name as current Event
+  price: string; // formatPrice(pricePhp) — "Free" if 0, else "₱<n>"; same name as current Event
   capacity: number | null;
-  attendees: number;          // from events_with_counts.attendee_count
+  attendees: number; // from events_with_counts.attendee_count
   isFull: boolean;
   venue: string | null;
   address: string | null;
   schedule: Array<{ time: string; label: string }>;
   // backward-compat aliases consumers already use:
-  city: string;               // alias of cityId — so `e.city === 'makati'` filter keeps working
-  category: string;           // alias of categoryId
+  city: string; // alias of cityId — so `e.city === 'makati'` filter keeps working
+  category: string; // alias of categoryId
 }
 ```
 
@@ -149,9 +150,14 @@ interface EventVM {
 ### `useEvents(filters?)`
 
 ```ts
-let q = supabase.from('events_with_counts').select('*, host:profiles!host_id(*), city:cities!city_id(*), category:categories!category_id(*)').order('start_at', { ascending: true });
-if (filters?.city) q = q.eq('city_id', filters.city);
-if (filters?.category) q = q.eq('category_id', filters.category);
+let q = supabase
+  .from("events_with_counts")
+  .select(
+    "*, host:profiles!host_id(*), city:cities!city_id(*), category:categories!category_id(*)",
+  )
+  .order("start_at", { ascending: true });
+if (filters?.city) q = q.eq("city_id", filters.city);
+if (filters?.category) q = q.eq("category_id", filters.category);
 // q (text search) is applied client-side via title.includes() after fetch — fast-path, no Postgres FTS
 ```
 
@@ -170,10 +176,12 @@ Trivial: read from `cities_with_counts` / `categories` ordered by `sort_order`. 
 ### `useRsvp(eventId)`
 
 Reads two things on mount:
+
 1. Total count — already in `events_with_counts.attendee_count` (consumer can use that; this hook returns it for completeness)
-2. Whether *current* user has RSVPed — `supabase.from('rsvps').select('id').eq('event_id', eventId).eq('user_id', user.id).maybeSingle()`
+2. Whether _current_ user has RSVPed — `supabase.from('rsvps').select('id').eq('event_id', eventId).eq('user_id', user.id).maybeSingle()`
 
 `toggle()`:
+
 - Optimistic: flip local `rsvped` immediately, increment/decrement local `count`
 - Insert/delete row in `rsvps`
 - On error: revert and surface message
@@ -202,14 +210,17 @@ The attending count beside the button reads from the same `useRsvp().count` so i
 **Loading (detail):** spinner centered in main area (matches `/auth/callback` style).
 **Empty:** existing "No events match" message stays as-is.
 **Error:** inline banner above the grid:
+
 ```
 Couldn't load events. [Retry]
 ```
+
 Retry calls the hook's `refetch()`.
 
 ## Files Touched
 
 **Create:**
+
 - `frontend/scripts/seed-events.ts` (one-shot seeder)
 - `src/hooks/useEvents.ts`
 - `src/hooks/useEventDetail.ts`
@@ -219,6 +230,7 @@ Retry calls the hook's `refetch()`.
 - `src/types/api.ts`
 
 **Modify (swap static import → hook):**
+
 - `src/pages/landing-page/EventsSection.tsx`
 - `src/pages/landing-page/DestinationsSection.tsx`
 - `src/pages/landing-page/HeroSection.tsx` (category chip row)
@@ -247,15 +259,15 @@ If `profiles` SELECT is locked down for `anon`, the design degrades gracefully: 
 
 ## Key Decisions
 
-| Decision | Choice | Reason |
-|---|---|---|
-| Fetching library | None (plain hooks) | Speed; no new dep |
-| Filtering | Server-side for city/category; client-side for text query | Avoids Postgres FTS setup; small dataset |
-| Optimistic RSVP | Yes | Snappier UX, easy rollback |
-| Capacity check | Server-enforced via RLS / trigger (already in schema); client just disables button when `isFull` | Defense-in-depth |
-| Static data files | Keep on disk, stop importing | Easy rollback; cleanup later |
-| Pagination | Skipped | Dataset is small for MVP |
-| Realtime | Skipped | Manual refetch on toggle is enough |
-| Seed approach | TS script with anon-key signUp for fake hosts | No service-role key needed; reuses existing TS data verbatim; idempotent |
-| Fake host emails | `seed-<slug>@xtravagala.dev` | `.dev` TLD won't collide with real users; deterministic so re-runs are safe |
-| Date parsing | Regex parse of existing PHT-formatted strings, year defaults to 2026 | Avoids editing every event in events.ts |
+| Decision          | Choice                                                                                           | Reason                                                                      |
+| ----------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| Fetching library  | None (plain hooks)                                                                               | Speed; no new dep                                                           |
+| Filtering         | Server-side for city/category; client-side for text query                                        | Avoids Postgres FTS setup; small dataset                                    |
+| Optimistic RSVP   | Yes                                                                                              | Snappier UX, easy rollback                                                  |
+| Capacity check    | Server-enforced via RLS / trigger (already in schema); client just disables button when `isFull` | Defense-in-depth                                                            |
+| Static data files | Keep on disk, stop importing                                                                     | Easy rollback; cleanup later                                                |
+| Pagination        | Skipped                                                                                          | Dataset is small for MVP                                                    |
+| Realtime          | Skipped                                                                                          | Manual refetch on toggle is enough                                          |
+| Seed approach     | TS script with anon-key signUp for fake hosts                                                    | No service-role key needed; reuses existing TS data verbatim; idempotent    |
+| Fake host emails  | `seed-<slug>@xtravagala.dev`                                                                     | `.dev` TLD won't collide with real users; deterministic so re-runs are safe |
+| Date parsing      | Regex parse of existing PHT-formatted strings, year defaults to 2026                             | Avoids editing every event in events.ts                                     |
