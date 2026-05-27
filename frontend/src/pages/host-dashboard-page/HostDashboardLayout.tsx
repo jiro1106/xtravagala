@@ -127,7 +127,7 @@ function Avatar({ url, name }: { url: string | null; name: string }) {
 }
 
 export function HostDashboardLayout() {
-  const { user, profile, signOut } = useAuth();
+  const { user, profile, requestSignOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -242,7 +242,7 @@ export function HostDashboardLayout() {
           <NavItem to="/host/dashboard" icon={IconDashboard} label="Dashboard" collapsed={collapsed} end />
           <NavItem to="/host/dashboard?view=events" icon={IconCalendar} label="My events" collapsed={collapsed} />
           <NavItem to="/host/events/new" icon={IconPlus} label="New event" collapsed={collapsed} />
-          <NavItem to="/profile" icon={IconUser} label="My profile" collapsed={collapsed} />
+          <NavItem to="/host/profile" icon={IconUser} label="My profile" collapsed={collapsed} />
         </nav>
 
         <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -278,7 +278,7 @@ export function HostDashboardLayout() {
           )}
           <button
             type="button"
-            onClick={() => void signOut()}
+            onClick={() => requestSignOut()}
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -367,7 +367,7 @@ export function HostDashboardLayout() {
               <span aria-hidden>{IconPlus}</span>
               Create event
             </button>
-            <Link to="/profile" aria-label="Edit profile">
+            <Link to="/host/profile" aria-label="Edit profile">
               <Avatar url={profile?.avatar_url ?? null} name={displayName} />
             </Link>
           </div>

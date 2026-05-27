@@ -1,19 +1,33 @@
-import { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/hooks/useAuth';
 import { supabase } from '@/lib/supabase';
 import { Button } from '@/components/ui/Button';
 
 export function ProfilePage() {
   const { user, profile } = useAuth();
+  const { pathname } = useLocation();
+  const insideHostShell = pathname.startsWith('/host/');
   const fileRef = useRef<HTMLInputElement>(null);
 
   const [fullName, setFullName] = useState(profile?.full_name ?? '');
   const [avatarUrl, setAvatarUrl] = useState<string | null>(profile?.avatar_url ?? null);
+  const [hydrated, setHydrated] = useState(!!profile);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
   const [saved, setSaved] = useState(false);
+
+  // Sync form once profile arrives from AuthContext. Without this, a hard
+  // reload (incl. the post-save reload below) lands here with profile=null,
+  // so the initial useState snapshots empty values and the form looks wiped.
+  useEffect(() => {
+    if (profile && !hydrated) {
+      setFullName(profile.full_name ?? '');
+      setAvatarUrl(profile.avatar_url ?? null);
+      setHydrated(true);
+    }
+  }, [profile, hydrated]);
 
   async function handleUpload(file: File) {
     if (!user) return;
@@ -54,7 +68,10 @@ export function ProfilePage() {
   }
 
   return (
-    <section className="wrap" style={{ padding: '70px 0 100px' }}>
+    <section
+      className={insideHostShell ? undefined : 'wrap'}
+      style={{ padding: insideHostShell ? '0' : '70px 0 100px' }}
+    >
       <div style={{ maxWidth: 560, margin: '0 auto' }}>
         <span className="text-[11px] font-semibold uppercase tracking-widest text-primary">
           Account
@@ -138,7 +155,7 @@ export function ProfilePage() {
             >
               {saving ? 'Saving…' : 'Save changes'}
             </Button>
-            {profile?.is_host ? (
+            {insideHostShell ? null : profile?.is_host ? (
               <Link
                 to="/host/dashboard"
                 className="text-[13.5px] text-text-mute transition-colors hover:text-primary"

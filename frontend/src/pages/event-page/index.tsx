@@ -1,10 +1,24 @@
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { MapPin, Calendar } from 'lucide-react';
 import { useEventDetail } from '@/hooks/useEventDetail';
 import { useEvents } from '@/hooks/useEvents';
+import { useDocumentTitle } from '@/hooks/useDocumentTitle';
 import { RsvpButton } from '@/components/ui/RsvpButton';
 
 const ease = [0.23, 1, 0.36, 1] as const;
+
+const iconBadgeStyle: React.CSSProperties = {
+  width: 32,
+  height: 32,
+  borderRadius: '50%',
+  background: 'oklch(95% 0.025 170)',
+  color: 'var(--primary)',
+  display: 'inline-flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  flexShrink: 0,
+};
 
 function BackButton() {
   const navigate = useNavigate();
@@ -35,6 +49,8 @@ export function EventDetailPage() {
   const { data: categoryEvents } = useEvents(
     event ? { category: event.category } : {},
   );
+
+  useDocumentTitle(event?.title);
 
   if (loading) {
     return (
@@ -213,9 +229,11 @@ export function EventDetailPage() {
             }}
           >
             {event.venue && (
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
-                <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>📍</span>
-                <div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                <span style={iconBadgeStyle} aria-hidden="true">
+                  <MapPin size={16} strokeWidth={2} />
+                </span>
+                <div style={{ paddingTop: 4 }}>
                   <div style={{ fontSize: 14, fontWeight: 600, color: 'var(--text)' }}>
                     {event.venue}
                   </div>
@@ -227,8 +245,10 @@ export function EventDetailPage() {
                 </div>
               </div>
             )}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ fontSize: 16, flexShrink: 0 }}>🗓</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+              <span style={iconBadgeStyle} aria-hidden="true">
+                <Calendar size={16} strokeWidth={2} />
+              </span>
               <span style={{ fontSize: 14, color: 'var(--text)' }}>{event.date}</span>
             </div>
           </div>

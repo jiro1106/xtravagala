@@ -7,6 +7,7 @@ import { LoadError } from '@/components/ui/LoadError';
 import { useEvents } from '@/hooks/useEvents';
 import { EventsFilterBar } from './EventsFilterBar';
 import { EventsCityBanner } from './EventsCityBanner';
+import { EventsCategoryBanner } from './EventsCategoryBanner';
 
 export function EventsPage() {
   const [searchParams] = useSearchParams();
@@ -43,6 +44,7 @@ export function EventsPage() {
       <EventsFilterBar />
 
       <EventsCityBanner count={filtered.length} />
+      <EventsCategoryBanner count={filtered.length} showCount={!city} />
 
       <div className="wrap section-py">
         {/* "Results for <query>" label — shown when a search query is active */}
@@ -54,7 +56,7 @@ export function EventsPage() {
             transition={{ duration: 0.3, ease: [0.23, 1, 0.36, 1] }}
             style={{
               margin: 0,
-              marginBottom: !city ? 10 : 36,
+              marginBottom: !city && !category ? 10 : 36,
               fontSize: 'clamp(20px, 2.2vw, 26px)',
               fontWeight: 600,
               letterSpacing: '-0.022em',
@@ -67,8 +69,8 @@ export function EventsPage() {
           </motion.p>
         )}
 
-        {/* Results count — hidden when a city filter is active (banner shows the count instead) */}
-        {!city && (
+        {/* Results count — hidden when a city or category banner is showing (banners show the count instead) */}
+        {!city && !category && (
           <motion.p
             key={filtered.length}
             initial={{ opacity: 0 }}
@@ -105,11 +107,11 @@ export function EventsPage() {
           }
         `}</style>
         {loading ? (
-          <div className="events-full-grid" style={city && !qRaw ? { marginTop: 36 } : undefined}>
+          <div className="events-full-grid" style={(city || category) && !qRaw ? { marginTop: 36 } : undefined}>
             {[0, 1, 2, 3, 4, 5].map((i) => <EventCardSkeleton key={i} />)}
           </div>
         ) : filtered.length > 0 ? (
-          <div className="events-full-grid" style={city && !qRaw ? { marginTop: 36 } : undefined}>
+          <div className="events-full-grid" style={(city || category) && !qRaw ? { marginTop: 36 } : undefined}>
             {filtered.map((event, index) => (
               <EventCard key={event.id} event={event} delay={index * 0.04} />
             ))}

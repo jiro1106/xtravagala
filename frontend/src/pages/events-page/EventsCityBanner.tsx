@@ -1,6 +1,6 @@
-import { useSearchParams } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useCities } from '@/hooks/useCities';
+import { useSearchParams } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useCities } from "@/hooks/useCities";
 
 interface EventsCityBannerProps {
   count: number;
@@ -8,7 +8,7 @@ interface EventsCityBannerProps {
 
 export function EventsCityBanner({ count }: EventsCityBannerProps) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const cityId = searchParams.get('city') ?? '';
+  const cityId = searchParams.get("city") ?? "";
   const { data: cities } = useCities();
   const city = cities.find((c) => c.id === cityId);
 
@@ -16,10 +16,10 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
     setSearchParams(
       (prev) => {
         const next = new URLSearchParams(prev);
-        next.delete('city');
+        next.delete("city");
         return next;
       },
-      { replace: true }
+      { replace: true },
     );
   }
 
@@ -33,38 +33,38 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, ease: [0.23, 1, 0.36, 1] }}
       style={{
-        position: 'relative',
-        width: '100%',
-        backgroundColor: '#1a1a1a',
+        position: "relative",
+        width: "100%",
+        backgroundColor: "#1a1a1a",
         backgroundImage: `url(${city.image})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        borderBottom: '1px solid rgba(0,0,0,0.15)',
-        overflow: 'hidden',
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        borderBottom: "1px solid rgba(0,0,0,0.15)",
+        overflow: "hidden",
       }}
     >
       <div
         aria-hidden="true"
         style={{
-          position: 'absolute',
+          position: "absolute",
           inset: 0,
           background:
-            'linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.25) 100%)',
-          pointerEvents: 'none',
+            "linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.35) 50%, rgba(0,0,0,0.25) 100%)",
+          pointerEvents: "none",
         }}
       />
 
       <div
         className="wrap events-city-banner-row"
         style={{
-          position: 'relative',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
+          position: "relative",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
           gap: 24,
           paddingTop: 28,
           paddingBottom: 28,
-          color: '#fff',
+          color: "#fff",
         }}
       >
         <div style={{ minWidth: 0 }}>
@@ -72,30 +72,30 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
             style={{
               fontSize: 11,
               fontWeight: 600,
-              letterSpacing: '0.14em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.7)',
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              color: "rgba(255,255,255,0.7)",
               marginBottom: 6,
             }}
           >
-            Now showing
+            Results for:
           </div>
           <h2
             style={{
               margin: 0,
               fontWeight: 600,
-              fontSize: 'clamp(24px, 2.6vw, 32px)',
-              letterSpacing: '-0.025em',
+              fontSize: "clamp(24px, 2.6vw, 32px)",
+              letterSpacing: "-0.025em",
               lineHeight: 1.15,
             }}
           >
-            Events in{' '}
+            Events in{" "}
             <span
               className="font-serif-accent italic"
               style={{
                 fontWeight: 400,
-                fontSize: 'clamp(30px, 3.2vw, 40px)',
-                letterSpacing: '-0.018em',
+                fontSize: "clamp(30px, 3.2vw, 40px)",
+                letterSpacing: "-0.018em",
               }}
             >
               {city.name}
@@ -106,8 +106,8 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
         <div
           className="events-city-banner-right"
           style={{
-            display: 'flex',
-            alignItems: 'center',
+            display: "flex",
+            alignItems: "center",
             gap: 16,
             flexShrink: 0,
           }}
@@ -116,11 +116,11 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
             style={{
               fontSize: 14,
               fontWeight: 500,
-              color: 'rgba(255,255,255,0.8)',
-              whiteSpace: 'nowrap',
+              color: "rgba(255,255,255,0.8)",
+              whiteSpace: "nowrap",
             }}
           >
-            {count.toLocaleString()} {count === 1 ? 'event' : 'events'}
+            {count.toLocaleString()} {count === 1 ? "event" : "events"}
           </span>
           <motion.button
             onClick={clearCity}
@@ -130,23 +130,23 @@ export function EventsCityBanner({ count }: EventsCityBannerProps) {
             style={{
               width: 32,
               height: 32,
-              borderRadius: '50%',
-              border: 'none',
-              background: 'rgba(255,255,255,0)',
-              color: '#fff',
-              cursor: 'pointer',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: 'background-color 0.18s',
+              borderRadius: "50%",
+              border: "none",
+              background: "rgba(255,255,255,0)",
+              color: "#fff",
+              cursor: "pointer",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              transition: "background-color 0.18s",
             }}
             onMouseEnter={(e) => {
               (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                'rgba(255,255,255,0.12)';
+                "rgba(255,255,255,0.12)";
             }}
             onMouseLeave={(e) => {
               (e.currentTarget as HTMLButtonElement).style.backgroundColor =
-                'rgba(255,255,255,0)';
+                "rgba(255,255,255,0)";
             }}
           >
             <svg

@@ -74,7 +74,7 @@ function UserAvatar({ profile }: { profile: Profile | null }) {
 }
 
 export function Header() {
-  const { user, profile, loading, signOut } = useAuth();
+  const { user, profile, loading, requestSignOut } = useAuth();
 
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -233,7 +233,7 @@ export function Header() {
                     </a>
                     <button
                       type="button"
-                      onClick={() => { setUserMenuOpen(false); void signOut(); }}
+                      onClick={() => { setUserMenuOpen(false); requestSignOut(); }}
                       style={{
                         display: 'block',
                         width: '100%',
@@ -353,7 +353,7 @@ export function Header() {
                 <motion.div variants={itemVariants} style={{ display: 'grid', marginTop: '16px' }}>
                   <button
                     type="button"
-                    onClick={() => { setMenuOpen(false); void signOut(); }}
+                    onClick={() => { setMenuOpen(false); requestSignOut(); }}
                     style={{
                       padding: '12px',
                       fontSize: '15px',
