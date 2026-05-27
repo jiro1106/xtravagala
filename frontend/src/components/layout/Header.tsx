@@ -224,6 +224,14 @@ export function Header() {
                       My profile
                     </a>
                     <a
+                      href="/profile?tab=events"
+                      style={{ display: 'block', padding: '10px 16px', fontSize: '13.5px', color: 'var(--text)', textDecoration: 'none', borderTop: '1px solid var(--border)' }}
+                      onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'var(--surface)'; }}
+                      onMouseLeave={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = ''; }}
+                    >
+                      My events
+                    </a>
+                    <a
                       href={profile?.is_host ? '/host/dashboard' : '/host/upgrade'}
                       style={{ display: 'block', padding: '10px 16px', fontSize: '13.5px', color: 'var(--text)', textDecoration: 'none', borderTop: '1px solid var(--border)' }}
                       onMouseEnter={(e) => { (e.currentTarget as HTMLAnchorElement).style.backgroundColor = 'var(--surface)'; }}
@@ -350,24 +358,34 @@ export function Header() {
               )}
 
               {!loading && user && (
-                <motion.div variants={itemVariants} style={{ display: 'grid', marginTop: '16px' }}>
-                  <button
-                    type="button"
-                    onClick={() => { setMenuOpen(false); requestSignOut(); }}
-                    style={{
-                      padding: '12px',
-                      fontSize: '15px',
-                      fontWeight: 500,
-                      color: 'var(--text)',
-                      backgroundColor: 'transparent',
-                      border: '1px solid var(--border)',
-                      borderRadius: '100px',
-                      cursor: 'pointer',
-                    }}
+                <>
+                  <motion.a
+                    variants={itemVariants}
+                    href="/profile?tab=events"
+                    onClick={() => setMenuOpen(false)}
+                    style={{ padding: '12px 4px', fontSize: '16px', fontWeight: 500, color: 'var(--text)', textDecoration: 'none', textAlign: 'center', borderBottom: '1px solid var(--border)' }}
                   >
-                    Sign out
-                  </button>
-                </motion.div>
+                    My events
+                  </motion.a>
+                  <motion.div variants={itemVariants} style={{ display: 'grid', marginTop: '16px' }}>
+                    <button
+                      type="button"
+                      onClick={() => { setMenuOpen(false); requestSignOut(); }}
+                      style={{
+                        padding: '12px',
+                        fontSize: '15px',
+                        fontWeight: 500,
+                        color: 'var(--text)',
+                        backgroundColor: 'transparent',
+                        border: '1px solid var(--border)',
+                        borderRadius: '100px',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      Sign out
+                    </button>
+                  </motion.div>
+                </>
               )}
 
               {(!user || !profile?.is_host) && (

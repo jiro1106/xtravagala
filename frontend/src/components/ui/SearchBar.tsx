@@ -232,7 +232,7 @@ export function SearchBar() {
   };
 
   return (
-    <div style={{ position: 'relative', maxWidth: 800 }}>
+    <div style={{ position: 'relative', maxWidth: 960, margin: '0 auto' }}>
       <motion.form
         role="search"
         onSubmit={(e) => {
