@@ -44,7 +44,18 @@ export function HostSection() {
               lineHeight: 1.15,
             }}
           >
-            For event hosts
+            For event{" "}
+            <span
+              className="font-serif-accent italic"
+              style={{
+                fontSize: "clamp(32px, 3.4vw, 46px)",
+                fontWeight: 700,
+                letterSpacing: "-0.015em",
+                color: "var(--primary)",
+              }}
+            >
+              hosts
+            </span>
           </h2>
           <p
             style={{
@@ -77,13 +88,23 @@ export function HostSection() {
                 overflow-x: auto;
                 -webkit-overflow-scrolling: touch;
                 scrollbar-width: none;
+                scroll-snap-type: x mandatory;
+                scroll-padding: 24px;
               }
               .host-fan-wrapper::-webkit-scrollbar { display: none; }
               .host-fan {
                 justify-content: flex-start;
                 flex-wrap: nowrap;
-                padding: 24px 0 48px;
+                padding: 24px 24px 48px;
                 width: max-content;
+                gap: 14px;
+              }
+              .host-card {
+                transform: rotate(0deg) !important;
+                margin-right: 0 !important;
+                width: 240px !important;
+                scroll-snap-align: center;
+                flex-shrink: 0;
               }
             }
           `}</style>

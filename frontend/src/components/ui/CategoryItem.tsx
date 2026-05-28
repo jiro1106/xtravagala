@@ -38,7 +38,10 @@ export function CategoryItem({ label, svgContent, to = '/events' }: CategoryItem
       </motion.span>
 
       {/* Label */}
-      <span className="font-medium text-[14.5px] -tracking-[0.005em]">
+      <span
+        className="font-medium text-[14.5px] -tracking-[0.005em] text-center"
+        style={{ minHeight: '3.1em', lineHeight: 1.55 }}
+      >
         {label}
       </span>
     </MotionLink>

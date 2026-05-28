@@ -82,6 +82,7 @@ export function HeroSection() {
           {/* Gradient overlays */}
           <div
             aria-hidden="true"
+            className="hero-card-overlay"
             style={{
               position: "absolute",
               inset: 0,
@@ -107,6 +108,7 @@ export function HeroSection() {
           >
             {/* Copy + CTAs */}
             <motion.div
+              className="hero-copy"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -160,7 +162,7 @@ export function HeroSection() {
                 Discover what's happening near you.
               </p>
 
-              <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+              <div className="hero-cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
                 <Button variant="primary" to="/events" showArrow>
                   Explore events
                 </Button>
@@ -170,6 +172,40 @@ export function HeroSection() {
               </div>
             </motion.div>
           </div>
+
+          <style>{`
+            @media (max-width: 600px) {
+              .hero-copy {
+                text-align: center;
+                margin-left: auto;
+                margin-right: auto;
+              }
+              .hero-copy p {
+                margin-left: auto;
+                margin-right: auto;
+              }
+              .hero-cta-row {
+                flex-direction: column;
+                align-items: stretch;
+              }
+              .hero-cta-row > * {
+                display: flex !important;
+                width: 100%;
+                justify-content: center;
+              }
+              .hero-cta-row a,
+              .hero-cta-row button {
+                width: 100%;
+                justify-content: center;
+              }
+              .hero-card-overlay {
+                background:
+                  radial-gradient(ellipse 65% 60% at 6% 85%, oklch(28% 0.08 170 / 0.60), transparent 55%),
+                  radial-gradient(ellipse 50% 55% at 92% 8%, oklch(42% 0.08 170 / 0.28), transparent 60%),
+                  linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.62) 100%) !important;
+              }
+            }
+          `}</style>
         </motion.article>
 
         {/* Hero categories */}
@@ -187,6 +223,7 @@ export function HeroSection() {
           }}
         >
           <div
+            className="hero-cats-header"
             style={{
               display: "flex",
               justifyContent: "space-between",
@@ -229,6 +266,12 @@ export function HeroSection() {
               }
               @media (max-width: 600px) {
                 .hero-cats-grid { grid-template-columns: repeat(3, 1fr); }
+                .hero-cats-header {
+                  flex-direction: column !important;
+                  align-items: center !important;
+                  gap: 6px !important;
+                  text-align: center;
+                }
               }
             `}</style>
             <div className="hero-cats-grid">

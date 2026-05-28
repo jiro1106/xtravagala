@@ -23,6 +23,7 @@ export function HostCard({ feature, rotation, zIndex, marginRight }: HostCardPro
 
   return (
     <motion.article
+      className="host-card"
       initial={{ rotate: rotation, y: rotation > 0 ? 8 : rotation < 0 ? 8 : -14, zIndex }}
       whileHover={{ rotate: 0, y: -16, zIndex: 10 }}
       transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
