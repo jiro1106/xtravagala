@@ -116,14 +116,14 @@ export function HostEventEditorPage() {
     const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
     const path = `${eventId}/cover-${Date.now()}.${ext}`;
     const { error: upErr } = await supabase.storage
-      .from('event_covers')
+      .from('event-covers')
       .upload(path, file, { cacheControl: '3600', upsert: true });
     if (upErr) {
       setError(upErr.message);
       setUploading(false);
       return null;
     }
-    const { data } = supabase.storage.from('event_covers').getPublicUrl(path);
+    const { data } = supabase.storage.from('event-covers').getPublicUrl(path);
     setUploading(false);
     return data.publicUrl;
   }

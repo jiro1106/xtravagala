@@ -8,7 +8,10 @@ export function AuthCallbackPage() {
   const [error, setError] = useState('');
 
   useEffect(() => {
-    const next = searchParams.get('next') ?? '/';
+    const raw = searchParams.get('next') ?? '/';
+    // Only allow same-origin internal paths. Reject protocol-relative (`//evil.com`)
+    // and anything that doesn't start with a single `/`.
+    const next = raw.startsWith('/') && !raw.startsWith('//') ? raw : '/';
 
     // Supabase JS client has detectSessionInUrl=true by default — it auto-exchanges
     // the OAuth/PKCE code in the URL into a session on init. We just wait for that

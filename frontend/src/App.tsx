@@ -25,6 +25,7 @@ import { HostUpgradePage } from "@/pages/host-upgrade-page";
 import { HostDashboardLayout } from "@/pages/host-dashboard-page/HostDashboardLayout";
 import { HostDashboardPage } from "@/pages/host-dashboard-page";
 import { HostEventEditorPage } from "@/pages/host-event-editor-page";
+import { NotFoundPage } from "@/pages/not-found-page";
 import { RequireAuth } from "@/components/auth/RequireAuth";
 import { RequireHost } from "@/components/auth/RequireHost";
 
@@ -56,6 +57,7 @@ const ROUTE_TITLES: Array<{ pattern: string; title: string | null }> = [
   { pattern: "/forgot-password", title: "Forgot password" },
   { pattern: "/auth/reset-password", title: "Reset password" },
   { pattern: "/auth/callback", title: "Signing in…" },
+  { pattern: "*", title: "Page not found" },
 ];
 
 function RouteTitle() {
@@ -128,6 +130,9 @@ export default function App() {
         <Route path="/auth/callback" element={<AuthCallbackPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/auth/reset-password" element={<ResetPasswordPage />} />
+        <Route element={<Layout />}>
+          <Route path="*" element={<NotFoundPage />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
