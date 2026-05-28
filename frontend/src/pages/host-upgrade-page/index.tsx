@@ -37,8 +37,17 @@ export function HostUpgradePage() {
   }
 
   return (
-    <section className="wrap" style={{ padding: '70px 0 100px' }}>
-      <div style={{ maxWidth: 560, margin: '0 auto' }}>
+    <section
+      className="wrap"
+      style={{
+        padding: '70px 0 100px',
+        flex: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+      }}
+    >
+      <div style={{ maxWidth: 560, margin: '0 auto', width: '100%' }}>
         <span className="text-[11px] font-semibold uppercase tracking-widest text-primary">
           Host portal
         </span>
