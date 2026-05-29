@@ -166,7 +166,7 @@ export function HeroSection() {
                 <Button variant="primary" to="/events" showArrow>
                   Explore events
                 </Button>
-                <Button variant="on-dark" href="#">
+                <Button variant="on-dark" to="/host/upgrade">
                   Create an event
                 </Button>
               </div>
