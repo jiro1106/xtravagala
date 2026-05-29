@@ -96,7 +96,7 @@ function ResultRow({
   );
 }
 
-export function SearchBar() {
+export function SearchBar({ fullWidth = false }: { fullWidth?: boolean } = {}) {
   const [query, setQuery] = useState('');
   const [searchFocused, setSearchFocused] = useState(false);
   const [searchActiveIndex, setSearchActiveIndex] = useState(-1);
@@ -232,7 +232,7 @@ export function SearchBar() {
   };
 
   return (
-    <div style={{ position: 'relative', maxWidth: 960, margin: '0 auto' }}>
+    <div style={{ position: 'relative', maxWidth: fullWidth ? '100%' : 960, margin: fullWidth ? 0 : '0 auto' }}>
       <motion.form
         role="search"
         onSubmit={(e) => {

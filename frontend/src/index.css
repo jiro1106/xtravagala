@@ -150,3 +150,40 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* Rotating headline word (hero "Find your ___" pill) */
+.rotating-word {
+  display: inline-flex;
+  overflow: hidden;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 14px;
+  padding: 2px 16px 6px;
+  line-height: 0.92;
+  vertical-align: top;
+  margin-top: 8px;
+  box-shadow: 0 14px 30px -14px oklch(55% 0.09 170 / 0.55);
+}
+
+.rotating-word__char {
+  display: inline-block;
+  white-space: pre;
+  animation: heroWordRoll 0.55s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+@keyframes heroWordRoll {
+  from {
+    transform: translateY(110%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rotating-word__char {
+    animation: none;
+  }
+}

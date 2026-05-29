@@ -1,213 +1,190 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { SearchBar } from "@/components/ui/SearchBar";
 import { Button } from "@/components/ui/Button";
 import { CategoryItem } from "@/components/ui/CategoryItem";
+import { RotatingWord } from "@/components/ui/RotatingWord";
 import { useCategories } from "@/hooks/useCategories";
 
 const ease = [0.23, 1, 0.32, 1] as const;
 
+const ROTATING_WORDS = [
+  "night.",
+  "weekend.",
+  "concert.",
+  "pop-up.",
+  "workshop.",
+  "seminar.",
+];
+
+const HERO_PHOTO =
+  "https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=1400&q=80";
+
 export function HeroSection() {
-  const [hovered, setHovered] = useState(false);
   const { data: categories } = useCategories();
 
   return (
-    <section
-      style={{
-        background: "var(--bg)",
-        padding: "36px 0 28px",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* Atmospheric teal bloom top-right */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "absolute",
-          top: -180,
-          right: -160,
-          width: 720,
-          height: 720,
-          borderRadius: "50%",
-          background:
-            "radial-gradient(circle, oklch(68% 0.11 170 / 0.08) 0%, transparent 65%)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
+    <section style={{ background: "var(--bg)", position: "relative", overflow: "hidden" }}>
+      {/* ---- Hero split (full-bleed, warm cream) ---- */}
+      <div className="hero-split">
+        {/* Left column — copy + CTAs */}
+        <div className="hero-split-left">
+          <motion.h1
+            className="hero-split-h1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease }}
+          >
+            Find your
+            <br />
+            <RotatingWord words={ROTATING_WORDS} ariaLabel="experience" />
+          </motion.h1>
 
-      <div className="wrap" style={{ position: "relative", zIndex: 1 }}>
-        {/* Search bar */}
-        <div style={{ marginBottom: 24 }}>
-          <SearchBar />
+          <motion.p
+            className="hero-split-sub"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.08, ease }}
+          >
+            Discover live music, food crawls, workshops, and pop-ups happening
+            across the Philippines this weekend.
+          </motion.p>
+
+          <motion.div
+            className="hero-split-ctas"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.16, ease }}
+          >
+            <Button variant="primary" to="/events" showArrow>
+              Explore events
+            </Button>
+            <Button variant="ghost" to="/host/upgrade">
+              Create an event
+            </Button>
+          </motion.div>
         </div>
 
-        {/* Hero card */}
-        <motion.article
-          onMouseEnter={() => setHovered(true)}
-          onMouseLeave={() => setHovered(false)}
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-40px" }}
-          transition={{ duration: 0.7, ease }}
-          style={{
-            position: "relative",
-            borderRadius: 28,
-            overflow: "hidden",
-            minHeight: 520,
-            isolation: "isolate",
-            boxShadow:
-              "0 32px 72px -24px rgba(0,0,0,0.38), 0 0 0 1px rgba(0,0,0,0.04)",
-          }}
-        >
-          {/* Background image */}
+        {/* Right column — full-bleed photo dissolving into the cream */}
+        <div className="hero-split-media" aria-hidden="true">
           <div
-            aria-hidden="true"
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: -2,
-              backgroundImage:
-                "url('https://images.unsplash.com/photo-1429962714451-bb934ecdc4ec?auto=format&fit=crop&w=2400&q=80')",
-              backgroundSize: "cover",
-              backgroundPosition: "center 44%",
-              filter: "saturate(1.1) brightness(0.58)",
-              transform: hovered ? "scale(1.06)" : "scale(1.02)",
-              transition: "transform 1.8s cubic-bezier(0.23, 1, 0.32, 1)",
-            }}
+            className="hero-split-photo"
+            style={{ backgroundImage: `url('${HERO_PHOTO}')` }}
           />
-
-          {/* Gradient overlays */}
-          <div
-            aria-hidden="true"
-            className="hero-card-overlay"
-            style={{
-              position: "absolute",
-              inset: 0,
-              zIndex: -1,
-              background: `
-                radial-gradient(ellipse 65% 60% at 6% 85%, oklch(28% 0.08 170 / 0.60), transparent 55%),
-                radial-gradient(ellipse 50% 55% at 92% 8%, oklch(42% 0.08 170 / 0.28), transparent 60%),
-                linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0.48) 100%)
-              `,
-            }}
-          />
-
-          {/* Inner content — vertically centered */}
-          <div
-            style={{
-              position: "relative",
-              minHeight: 520,
-              padding: "clamp(28px, 4vw, 48px) clamp(22px, 7vw, 100px)",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            {/* Copy + CTAs */}
-            <motion.div
-              className="hero-copy"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.08, ease }}
-              style={{ maxWidth: 680 }}
-            >
-              <h1
-                style={{
-                  margin: "0 0 14px",
-                  padding: 0,
-                  lineHeight: 1.1,
-                }}
-              >
-                <span
-                  style={{
-                    display: "block",
-                    fontSize: "clamp(34px, 3.8vw, 50px)",
-                    fontWeight: 700,
-                    color: "white",
-                    letterSpacing: "-0.03em",
-                    lineHeight: 1.08,
-                  }}
-                >
-                  Find events
-                </span>
-                <span
-                  className="font-serif-accent italic"
-                  style={{
-                    display: "block",
-                    fontSize: "clamp(38px, 4.4vw, 56px)",
-                    color: "oklch(72% 0.12 170)",
-                    letterSpacing: "-0.018em",
-                    lineHeight: 1.15,
-                    marginTop: 2,
-                  }}
-                >
-                  worth showing up for
-                </span>
-              </h1>
-
-              <p
-                style={{
-                  fontSize: 15,
-                  color: "rgba(255,255,255,0.65)",
-                  maxWidth: "50ch",
-                  marginBottom: 22,
-                  lineHeight: 1.65,
-                }}
-              >
-                From Manila's rooftop concerts to Cebu's weekend markets.
-                Discover what's happening near you.
-              </p>
-
-              <div className="hero-cta-row" style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-                <Button variant="primary" to="/events" showArrow>
-                  Explore events
-                </Button>
-                <Button variant="on-dark" to="/host/upgrade">
-                  Create an event
-                </Button>
-              </div>
-            </motion.div>
+          <div className="hero-split-grad" />
+          <div className="hero-split-cap">
+            <h4>Rooftop Jazz at the Pier</h4>
+            <div className="hero-split-meta">Sat · 8 PM · Manila</div>
           </div>
+        </div>
 
-          <style>{`
-            @media (max-width: 600px) {
-              .hero-copy {
-                text-align: center;
-                margin-left: auto;
-                margin-right: auto;
-              }
-              .hero-copy p {
-                margin-left: auto;
-                margin-right: auto;
-              }
-              .hero-cta-row {
-                flex-direction: column;
-                align-items: stretch;
-              }
-              .hero-cta-row > * {
-                display: flex !important;
-                width: 100%;
-                justify-content: center;
-              }
-              .hero-cta-row a,
-              .hero-cta-row button {
-                width: 100%;
-                justify-content: center;
-              }
-              .hero-card-overlay {
-                background:
-                  radial-gradient(ellipse 65% 60% at 6% 85%, oklch(28% 0.08 170 / 0.60), transparent 55%),
-                  radial-gradient(ellipse 50% 55% at 92% 8%, oklch(42% 0.08 170 / 0.28), transparent 60%),
-                  linear-gradient(180deg, rgba(0,0,0,0.10) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,0.62) 100%) !important;
-              }
+        <style>{`
+          .hero-split {
+            position: relative;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: stretch;
+            min-height: calc(100vh - var(--header-h, 64px));
+            overflow: hidden;
+            background:
+              radial-gradient(ellipse 70% 55% at 100% 0%, oklch(95% 0.022 170), transparent 62%),
+              radial-gradient(ellipse 60% 60% at 0% 100%, oklch(96% 0.015 95), transparent 58%),
+              #f9f7f1;
+          }
+          .hero-split-left {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 40px 60px max(72px, calc((100vw - 1360px) / 2 + 72px));
+          }
+          .hero-split-h1 {
+            margin: 0;
+            font-size: clamp(56px, 6.6vw, 92px);
+            line-height: 0.92;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            color: var(--text);
+          }
+          .hero-split-sub {
+            color: var(--text-mute);
+            font-size: 16px;
+            line-height: 1.55;
+            max-width: 38ch;
+            margin: 24px 0 28px;
+          }
+          .hero-split-ctas {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+          }
+          .hero-split-media {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 14%, #000 40%);
+            mask-image: linear-gradient(90deg, transparent 0%, rgba(0,0,0,0.35) 14%, #000 40%);
+          }
+          .hero-split-photo {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+          }
+          .hero-split-grad {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background: linear-gradient(180deg, rgba(15,18,20,0) 45%, rgba(15,18,20,0.55) 100%);
+          }
+          .hero-split-cap {
+            position: absolute;
+            bottom: 26px;
+            right: 28px;
+            z-index: 1;
+            color: #fff;
+            text-align: right;
+          }
+          .hero-split-cap h4 {
+            margin: 0;
+            font-size: 23px;
+            font-weight: 600;
+            letter-spacing: -0.018em;
+            line-height: 1.15;
+          }
+          .hero-split-meta {
+            margin-top: 7px;
+            font-size: 13px;
+            color: oklch(86% 0.02 170);
+            letter-spacing: 0.01em;
+          }
+          @media (max-width: 860px) {
+            .hero-split {
+              grid-template-columns: 1fr;
+              min-height: 0;
             }
-          `}</style>
-        </motion.article>
+            .hero-split-left {
+              padding: 48px 28px;
+            }
+            .hero-split-media {
+              height: 360px;
+              -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+              mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
+            }
+          }
+          @media (max-width: 600px) {
+            .hero-split-left {
+              padding: 40px 22px;
+            }
+          }
+        `}</style>
+      </div>
 
+      {/* ---- Browse by category + Search (contained) ---- */}
+      <div
+        className="wrap"
+        style={{ position: "relative", zIndex: 1, paddingTop: 32, paddingBottom: 32 }}
+      >
         {/* Hero categories */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -215,7 +192,6 @@ export function HeroSection() {
           viewport={{ once: true, margin: "-40px" }}
           transition={{ duration: 0.7, ease, delay: 0.1 }}
           style={{
-            marginTop: 24,
             background: "#f4f4f1",
             border: "1px solid var(--border)",
             borderRadius: 22,

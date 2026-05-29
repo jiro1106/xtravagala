@@ -133,7 +133,7 @@ export function Header() {
     >
       <div
         className="flex items-center justify-between md:grid md:[grid-template-columns:1fr_auto_1fr]"
-        style={{ padding: '10px clamp(20px, 4vw, 48px)', width: '100%' }}
+        style={{ padding: '16px clamp(20px, 4vw, 48px)', width: '100%' }}
       >
         <a
           href="/"

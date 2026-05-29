@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { EventCard } from "@/components/ui/EventCard";
 import { EventCardSkeleton } from "@/components/ui/EventCardSkeleton";
 import { LoadError } from "@/components/ui/LoadError";
+import { SearchBar } from "@/components/ui/SearchBar";
 import { useEvents } from "@/hooks/useEvents";
 
 export function EventsSection() {
@@ -66,6 +67,17 @@ export function EventsSection() {
           >
             See all events →
           </Link>
+        </motion.div>
+
+        {/* Search bar — above the event cards */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.6, ease: [0.23, 1, 0.32, 1] }}
+          style={{ marginBottom: 40 }}
+        >
+          <SearchBar fullWidth />
         </motion.div>
 
         {/* Events grid */}

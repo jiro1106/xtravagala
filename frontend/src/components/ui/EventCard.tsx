@@ -12,6 +12,7 @@ const AVATAR_COUNT = 3;
 
 export function EventCard({ event, delay = 0 }: EventCardProps) {
   const [hovered, setHovered] = useState(false);
+  const isFree = event.price === 'Free';
 
   return (
     <Link
@@ -54,37 +55,59 @@ export function EventCard({ event, delay = 0 }: EventCardProps) {
         </div>
 
         {/* Body */}
-        <div className="flex flex-col px-5 pt-5 pb-5" style={{ flexGrow: 1 }}>
+        <div className="flex flex-col px-5 pt-4 pb-5" style={{ flexGrow: 1 }}>
           {/* Title */}
           <h3
-            className="text-[19px] font-semibold leading-[1.25] -tracking-[0.018em] line-clamp-2 text-[var(--text)]"
+            className="text-[17px] font-semibold leading-[1.3] -tracking-[0.016em] line-clamp-2 text-[var(--text)]"
           >
             {event.title}
           </h3>
 
-          {/* Meta — single line, muted */}
-          <p className="mt-3 text-[13px] text-[var(--text-mute)] truncate">
-            {event.date}
-            <span className="mx-1.5 text-[var(--border)]">·</span>
-            <span style={{ color: 'var(--text)', fontWeight: 500 }}>{event.price}</span>
-          </p>
+          {/* Date / time with pipe divider */}
+          <div className="flex items-center mt-2.5" style={{ gap: 0 }}>
+            {event.date.split(' · ').map((part, i, arr) => (
+              <span key={i} className="flex items-center">
+                <span className="text-[12.5px] text-[var(--text-mute)] leading-none">{part}</span>
+                {i < arr.length - 1 && (
+                  <span className="mx-2 leading-none select-none" style={{ color: 'var(--border)', fontSize: 12 }}>|</span>
+                )}
+              </span>
+            ))}
+          </div>
 
-          {/* Footer — avatars + going count, no border */}
-          <div className="flex items-center gap-2 mt-auto pt-5">
-            <div className="flex">
-              {Array.from({ length: Math.min(AVATAR_COUNT, event.attendees) }).map((_, i) => (
-                <div
-                  key={i}
-                  className="w-[20px] h-[20px] rounded-full bg-[var(--muted)]"
-                  style={{
-                    marginLeft: i === 0 ? 0 : -7,
-                    border: '1.5px solid var(--bg)',
-                  }}
-                />
-              ))}
+          {/* Footer — attendees left, price pill right */}
+          <div className="flex items-center justify-between gap-2 mt-auto pt-4">
+            <div className="flex items-center gap-2">
+              <div className="flex">
+                {Array.from({ length: Math.min(AVATAR_COUNT, event.attendees) }).map((_, i) => (
+                  <div
+                    key={i}
+                    className="w-[20px] h-[20px] rounded-full bg-[var(--muted)]"
+                    style={{
+                      marginLeft: i === 0 ? 0 : -7,
+                      border: '1.5px solid var(--bg)',
+                    }}
+                  />
+                ))}
+              </div>
+              <span className="text-[12px] text-[var(--text-mute)]">
+                {event.attendees.toLocaleString()} going
+              </span>
             </div>
-            <span className="text-[12px] text-[var(--text-mute)]">
-              {event.attendees.toLocaleString()} going
+            <span
+              style={{
+                backgroundColor: isFree ? 'oklch(15% 0.012 170)' : 'var(--primary)',
+                color: '#fff',
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: '0.01em',
+                borderRadius: 6,
+                padding: '3px 9px',
+                flexShrink: 0,
+                lineHeight: 1.5,
+              }}
+            >
+              {event.price}
             </span>
           </div>
         </div>
