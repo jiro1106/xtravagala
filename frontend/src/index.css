@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Paytone+One&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=Paytone+One&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -44,7 +44,7 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-family: "Plus Jakarta Sans", system-ui, sans-serif;
   font-size: 16px;
   line-height: 1.5;
   color: var(--text);
@@ -161,7 +161,7 @@ body {
   padding: 2px 16px 6px;
   line-height: 0.92;
   vertical-align: top;
-  margin-top: 8px;
+  margin-top: 20px;
   box-shadow: 0 14px 30px -14px oklch(55% 0.09 170 / 0.55);
 }
 
