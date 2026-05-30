@@ -132,7 +132,7 @@ export function Header() {
       }}
     >
       <div
-        className="flex items-center justify-between md:grid md:[grid-template-columns:1fr_auto_1fr]"
+        className="flex items-center justify-between lg:grid lg:[grid-template-columns:1fr_auto_1fr]"
         style={{ padding: '16px clamp(20px, 4vw, 48px)', width: '100%' }}
       >
         <a
@@ -145,7 +145,7 @@ export function Header() {
           </span>
         </a>
 
-        <nav className="hidden md:flex" style={{ alignItems: 'center', gap: '2px' }}>
+        <nav className="hidden lg:flex" style={{ alignItems: 'center', gap: '2px' }}>
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -159,7 +159,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="hidden md:flex" style={{ alignItems: 'center', gap: '6px', justifyContent: 'flex-end' }}>
+        <div className="hidden lg:flex" style={{ alignItems: 'center', gap: '6px', justifyContent: 'flex-end' }}>
           {!loading && !user && (
             <>
               <Button variant="ghost" size="sm" to="/login">Sign in</Button>
@@ -277,7 +277,7 @@ export function Header() {
 
         <button
           type="button"
-          className="flex md:hidden"
+          className="flex lg:hidden"
           aria-label={menuOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen((v) => !v)}
@@ -305,7 +305,7 @@ export function Header() {
         {menuOpen && (
           <>
             <motion.div
-              className="md:hidden"
+              className="lg:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -314,7 +314,7 @@ export function Header() {
               style={{ position: 'fixed', inset: 'var(--header-h) 0 0 0', backgroundColor: 'rgba(0,0,0,0.35)', zIndex: 90 }}
             />
             <motion.nav
-              className="md:hidden"
+              className="lg:hidden"
               variants={menuVariants}
               initial="closed"
               animate="open"
