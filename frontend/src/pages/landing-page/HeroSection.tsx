@@ -51,8 +51,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.08, ease }}
           >
-            Discover events happening near you across the Philippines, or host
-            one of your own — from intimate pop-ups to packed-out shows.
+            Find events worth showing up for, or be the one who hosts them.
           </motion.p>
 
           <motion.div
