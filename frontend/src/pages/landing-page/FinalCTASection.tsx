@@ -71,7 +71,7 @@ export function FinalCTASection() {
                   margin: "0 auto 32px",
                 }}
               >
-                Create your first event or browse what's happening this weekend
+                Browse events near you or bring your own to life — it only takes a few minutes to get started.
               </p>
 
               <div
@@ -82,7 +82,7 @@ export function FinalCTASection() {
                   justifyContent: "center",
                 }}
               >
-                <Button variant="primary" href="#" showArrow>
+                <Button variant="primary" to="/host/login" showArrow>
                   Create an event
                 </Button>
                 <Button variant="on-dark" to="/events">

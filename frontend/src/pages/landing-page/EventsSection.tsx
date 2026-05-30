@@ -51,7 +51,7 @@ export function EventsSection() {
                 lineHeight: 1.5,
               }}
             >
-              Things happening in Manila this weekend
+              Upcoming events across the Philippines — concerts, food crawls, workshops, and more.
             </p>
           </div>
 
