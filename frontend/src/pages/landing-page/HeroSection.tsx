@@ -164,23 +164,37 @@ export function HeroSection() {
             color: oklch(86% 0.02 170);
             letter-spacing: 0.01em;
           }
-          @media (max-width: 860px) {
+          /* Tablet / iPad — keep the horizontal split, tighten the insets so it fits */
+          @media (max-width: 1024px) {
+            .hero-split {
+              min-height: clamp(440px, 72vh, 640px);
+            }
+            .hero-split-left {
+              padding: 56px 32px 56px clamp(40px, 6vw, 72px);
+            }
+            .hero-split-h1 {
+              font-size: clamp(48px, 6.4vw, 80px);
+            }
+            .hero-split-sub {
+              margin: 20px 0 24px;
+            }
+          }
+          /* Mobile — stack vertically: copy on top, photo below */
+          @media (max-width: 640px) {
             .hero-split {
               grid-template-columns: 1fr;
               min-height: 0;
             }
             .hero-split-left {
-              padding: 48px 28px;
+              padding: 44px 22px 36px;
+            }
+            .hero-split-h1 {
+              font-size: clamp(44px, 13vw, 68px);
             }
             .hero-split-media {
-              height: 360px;
-              -webkit-mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
-              mask-image: linear-gradient(180deg, #000 60%, transparent 100%);
-            }
-          }
-          @media (max-width: 600px) {
-            .hero-split-left {
-              padding: 40px 22px;
+              height: 320px;
+              -webkit-mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
+              mask-image: linear-gradient(180deg, #000 62%, transparent 100%);
             }
           }
         `}</style>
