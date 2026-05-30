@@ -23,7 +23,13 @@ export function HeroSection() {
   const { data: categories } = useCategories();
 
   return (
-    <section style={{ background: "var(--bg)", position: "relative", overflow: "hidden" }}>
+    <section
+      style={{
+        background: "var(--bg)",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
       {/* ---- Hero split (full-bleed, warm cream) ---- */}
       <div className="hero-split">
         {/* Left column — copy + CTAs */}
@@ -96,11 +102,11 @@ export function HeroSection() {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 60px 40px 60px max(72px, calc((100vw - 1360px) / 2 + 72px));
+            padding: 60px 40px 60px clamp(160px, 5vw, 190px);
           }
           .hero-split-h1 {
             margin: 0;
-            font-size: clamp(56px, 6.6vw, 92px);
+            font-size: clamp(64px, 7.4vw, 102px);
             line-height: 0.92;
             font-weight: 700;
             letter-spacing: -0.04em;
@@ -183,7 +189,12 @@ export function HeroSection() {
       {/* ---- Browse by category + Search (contained) ---- */}
       <div
         className="wrap"
-        style={{ position: "relative", zIndex: 1, paddingTop: 32, paddingBottom: 32 }}
+        style={{
+          position: "relative",
+          zIndex: 1,
+          paddingTop: 32,
+          paddingBottom: 32,
+        }}
       >
         {/* Hero categories */}
         <motion.div
