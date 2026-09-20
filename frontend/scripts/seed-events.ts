@@ -16,11 +16,13 @@ if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
   process.exit(1);
 }
 
-// Single fake host owns all seeded events. Display name is generic; the original
-// per-event host strings are dropped (Supabase signup rate limits + domain validation
-// make per-host signups impractical).
-const SEED_EMAIL = 'seed@xtravagala.com';
-const SEED_PASSWORD = 'REDACTED_SEED_CREDENTIAL';
+// Single seed host owns all seeded events. Keep its credentials local.
+const SEED_EMAIL = process.env.SEED_EMAIL;
+const SEED_PASSWORD = process.env.SEED_PASSWORD;
+if (!SEED_EMAIL || !SEED_PASSWORD) {
+  console.error('Missing SEED_EMAIL or SEED_PASSWORD in frontend/.env.local');
+  process.exit(1);
+}
 const SEED_HOST_NAME = 'XtravaGala Community';
 const SEED_HOST_BIO = 'Curated seed events from local PH communities.';
 const SEED_AVATAR =
@@ -53,7 +55,7 @@ function parsePeso(p: string): number {
 }
 
 function parseEventDate(dateStr: string): string | null {
-  const m = dateStr.match(/^[A-Za-z]+,\s*([A-Za-z]+)\s+(\d+)\s*[·\-]\s*(\d+):(\d+)\s*(AM|PM)/);
+  const m = dateStr.match(/^[A-Za-z]+,\s*([A-Za-z]+)\s+(\d+)\s*[·-]\s*(\d+):(\d+)\s*(AM|PM)/);
   if (!m) return null;
   const [, monthName, dayStr, hourStr, minStr, ampm] = m;
   const month = MONTH_INDEX[monthName.toLowerCase()];

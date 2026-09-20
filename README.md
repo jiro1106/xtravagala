@@ -145,7 +145,7 @@ From the `frontend/` directory:
 | `npm run build` | Type-check and build for production into `dist/` |
 | `npm run preview` | Serve the production build locally |
 | `npm run lint` | Run ESLint over the codebase |
-| `npm run seed:events` | Seed Supabase with sample events (requires service-role key in env) |
+| `npm run seed:events` | Seed Supabase with sample events (requires `SEED_EMAIL` and `SEED_PASSWORD` in `frontend/.env.local`) |
 | `npm run test:e2e` | Run Playwright end-to-end tests headlessly |
 | `npm run test:e2e:ui` | Run Playwright tests in interactive UI mode |
 | `npm run test:e2e:report` | Open the last Playwright HTML report |
