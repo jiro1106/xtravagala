@@ -1,7 +1,5 @@
 # XtravaGala
 
-> Find events worth showing up for.
-
 XtravaGala is an event discovery and hosting platform for the Philippines. Attendees browse curated events by city and category and RSVP with a single tap; hosts publish events, manage their schedule, and track attendees from a dedicated dashboard.
 
 **Live demo:** [xtravagala.vercel.app](https://xtravagala.vercel.app/)
