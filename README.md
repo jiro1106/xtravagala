@@ -6,6 +6,18 @@ XtravaGala is an event discovery and hosting platform for the Philippines. Atten
 
 **Live demo:** [xtravagala.vercel.app](https://xtravagala.vercel.app/)
 
+XtravaGala has two sides: an attendee-facing event discovery experience and a host workspace for publishing events and tracking RSVPs.
+
+## Screenshots
+
+### Event discovery
+
+![XtravaGala event discovery landing page](frontend/public/readme/landing-page.png)
+
+### Host dashboard
+
+![XtravaGala host dashboard](frontend/public/readme/host-dashboard.png)
+
 ---
 
 ## Table of Contents
